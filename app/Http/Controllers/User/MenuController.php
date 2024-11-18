@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
@@ -13,7 +13,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
