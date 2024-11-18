@@ -35,7 +35,9 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'admin.',
     ], function () {
 
-        // Route::resource('orders', )
+        Route::resource('orders', App\Http\Controllers\Admin\OrderController::class)->shallow()->only(['index', 'show', 'edit', 'update']);
+        Route::resource('menus', App\Http\Controllers\Admin\MenuController::class)->shallow();
+
 
     });
 
@@ -46,7 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'user.',
     ], function () {
 
-
+        Route::resource('orders', App\Http\Controllers\User\OrderController::class)->shallow()->only(['index', 'create', 'store', 'show']);
+        Route::resource('menus', App\Http\Controllers\User\MenuController::class)->shallow()->only(['index', 'show']);
 
     });
 });
