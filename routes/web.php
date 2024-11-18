@@ -28,4 +28,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::group([
+        'prefix' => 'admin',
+        'middleware' => 'admin_middleware',
+        'as' => 'admin.',
+    ], function () {
+
+        // Route::resource('orders', )
+
+    });
+
+
+    Route::group([
+        'prefix' => 'user',
+        'middleware' => 'user_middleware',
+        'as' => 'user.',
+    ], function () {
+
+
+
+    });
+});
+
+
 require __DIR__.'/auth.php';
