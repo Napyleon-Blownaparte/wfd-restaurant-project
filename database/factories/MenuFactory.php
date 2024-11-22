@@ -20,6 +20,7 @@ class MenuFactory extends Factory
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
             'price' => $this->faker->numberBetween(30000, 70000),
+            'image_url' => $this->faker->imageUrl,
         ];
     }
 }
