@@ -13,6 +13,10 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                title1: ['Great Vibes', 'cursive'],
+                title2: ['Cinzel', 'serif'],
+                title3: ['DM Sans', 'sans-serif'],
+                navbar: ['Cormorant SC', 'serif'],
             },
         },
     },
