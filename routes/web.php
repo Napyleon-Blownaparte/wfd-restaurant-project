@@ -23,6 +23,10 @@ Route::get('/home', function () {
     return view('landing-page');
 });
 
+Route::get('/add-new-menu', function () {
+    return view('admin/add-menu');
+});
+
 // Route::get('/menu', function () {
 //     return view('menus.index');
 // });
