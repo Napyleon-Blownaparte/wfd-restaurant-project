@@ -31,6 +31,10 @@ Route::get('/add-new-voucher', function () {
     return view('admin/add-voucher');
 });
 
+Route::get('/orders', function () {
+    return view('admin/orders');
+});
+
 // Route::get('/menu', function () {
 //     return view('menus.index');
 // });
