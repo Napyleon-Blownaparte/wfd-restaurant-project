@@ -162,7 +162,8 @@
                 <button id="delete-menu-btn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
             </div>
         </div>
-
+    </div>
+    
         <!-- Modal Edit Category -->
 <div id="edit-category-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
     <div class="bg-white rounded-lg p-6 w-1/3">
@@ -221,8 +222,8 @@
     </div>
 </div>
 
-<!-- Delete Category Modal -->
-<div id="delete-category-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+ <!-- Delete Category Modal  -->
+<div id="egory-modaldelete-cat" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white rounded-lg p-6 w-96 relative">
         <button id="close-delete-modal" class="absolute top-2 right-2">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
@@ -333,35 +334,35 @@
 
     
         // Edit Category Modal
-        const editCategoryBtn = document.getElementById('edit-category-btn');
-        editCategoryBtn.addEventListener('click', () => {
-            const editCategoryModal = document.getElementById('edit-category-modal');
-            editCategoryModal.classList.remove('hidden');
-        });
+    const editCategoryBtn = document.getElementById('edit-category-btn');
+    editCategoryBtn.addEventListener('click', () => {
+        const editCategoryModal = document.getElementById('edit-category-modal');
+        editCategoryModal.classList.remove('hidden');
+    });
 
-        document.getElementById('close-edit-modal').addEventListener('click', () => {
-            document.getElementById('edit-category-modal').classList.add('hidden');
-        });
+    document.getElementById('close-edit-modal-btn').addEventListener('click', () => {
+        document.getElementById('edit-category-modal').classList.add('hidden');
+    });
 
-        // Delete Category Modal
-        const deleteCategoryBtn = document.getElementById('delete-category-btn');
-        deleteCategoryBtn.addEventListener('click', () => {
-            const deleteCategoryModal = document.getElementById('delete-category-modal');
-            deleteCategoryModal.classList.remove('hidden');
-        });
+    // Delete Category Modal
+document.getElementById('delete-category-btn').addEventListener('click', () => {
+    const deleteCategoryModal = document.getElementById('delete-category-modal');
+    deleteCategoryModal.classList.remove('hidden');
+});
 
-        document.getElementById('close-delete-modal').addEventListener('click', () => {
-            document.getElementById('delete-category-modal').classList.add('hidden');
-        });
+document.getElementById('close-delete-modal-btn').addEventListener('click', () => {
+    document.getElementById('delete-category-modal').classList.add('hidden');
+});
 
-        document.getElementById('confirm-delete-btn').addEventListener('click', () => {
-            const confirmDeleteInput = document.getElementById('confirm-delete');
-            if (confirmDeleteInput.value === 'confirm') {
-                alert('Category deleted successfully');
-                document.getElementById('delete-category-modal').classList.add('hidden');
-            } else {
-                alert('Please type "confirm" to delete the category');
-            }
-        });
+document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+    const confirmDeleteInput = document.getElementById('delete-confirmation');
+    if (confirmDeleteInput.value === 'CONFIRM') {
+        alert('Category deleted successfully');
+        document.getElementById('delete-category-modal').classList.add('hidden');
+    } else {
+        alert('Please type "CONFIRM" to delete the category');
+    }
+});
+
             
 </script>

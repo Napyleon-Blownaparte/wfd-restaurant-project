@@ -27,6 +27,10 @@ Route::get('/add-new-menu', function () {
     return view('admin/add-menu');
 });
 
+Route::get('/add-new-voucher', function () {
+    return view('admin/add-voucher');
+});
+
 // Route::get('/menu', function () {
 //     return view('menus.index');
 // });
