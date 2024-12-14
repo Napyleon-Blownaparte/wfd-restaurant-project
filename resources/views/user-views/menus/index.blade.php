@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="bg-black text-white">
         <div class="flex flex-col md:flex-row h-screen">
+            
 
             <!-- Left Section -->
             <div class="md:w-1/2 flex items-center justify-center bg-cover bg-center p-10 relative"
@@ -23,6 +24,7 @@
 
                             <!-- Menu -->
                             @foreach($category->menus as $menu)
+                                <a href="{{ route('user.menus.show', $menu->id) }}">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <img src={{asset('storage/' . $menu->image)}} alt={{$menu->name}} class="w-16 h-16 rounded-md">
@@ -33,12 +35,13 @@
                                     </div>
                                     <p class="font-title3 text-lg font-semibold">{{$menu->price}}</p>
                                 </div>
+                                </a>
                             @endforeach
 
                         </div>
                     </div>
                 @endforeach
-                
+
             </div>
         </div>
     </div>

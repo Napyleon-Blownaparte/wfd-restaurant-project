@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -21,7 +22,10 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $cart = session()->get('cart', []);
+        return view('user-views.orders.create', [
+            'cart' => $cart,
+        ]);
     }
 
     /**
