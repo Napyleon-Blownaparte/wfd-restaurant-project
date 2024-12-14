@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\MenuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', function () {
+    return view('landing-page');
+});
+
+// Route::get('/menu', function () {
+//     return view('menus.index');
+// });
+
+Route::get('/menu', [MenuController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

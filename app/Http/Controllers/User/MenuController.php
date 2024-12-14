@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use App\Models\MenuCategory;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -13,7 +14,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+        $categories = MenuCategory::with('menus')->get();
+        return view ('menus.index', compact('categories'));
     }
 
     /**
@@ -29,7 +31,9 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $menu = Menu::create([
+            'image' => $request->file('image_url')->store('/menus/image', 'public'),
+        ]);
     }
 
     /**
