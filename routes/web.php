@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\MenuController;
+use App\Http\Controllers\User\VoucherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,8 @@ Route::get('/home', function () {
 // });
 
 Route::get('/menu', [MenuController::class, 'index']);
+
+Route::get('/voucher', [VoucherController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
