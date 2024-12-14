@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Voucher;
@@ -13,10 +13,7 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $vouchers = Voucher::all();
-        return view('user-views.vouchers.index', [
-            'vouchers' => $vouchers,
-        ]);
+        //
     }
 
     /**
@@ -40,9 +37,7 @@ class VoucherController extends Controller
      */
     public function show(Voucher $voucher)
     {
-        return view('user-views.vouchers.show', [
-            'voucher' => $voucher,
-        ]);
+        //
     }
 
     /**

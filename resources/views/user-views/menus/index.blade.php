@@ -32,6 +32,7 @@
 
                             <!-- Menu -->
                             @foreach($category->menus as $menu)
+                            <a href="{{ route("user.menus.show", $menu->id) }}">
                                 <div class="flex items-start md:items-center justify-between">
                                     <div class="flex items-start md:items-center">
                                         <img src={{asset('storage/' . $menu->image)}} alt={{$menu->name}} class="w-14 h-14 md:w-16 md:h-16 rounded-md">

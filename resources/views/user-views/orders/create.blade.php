@@ -12,7 +12,7 @@
                     <h3 class="text-xl font-bold">Your Cart</h3>
 
                     @if ($cart)
-                        <form action="{{ route('user.cart.update') }}" method="POST" id="cartForm">
+                        <form action="{{ route('user.orders.store') }}" method="POST" id="cartForm">
                             @csrf
                             @foreach ($cart as $key => $item)
                                 <input type="hidden" name="cart[{{ $key }}][key]" value="{{ $key }}">
@@ -27,18 +27,33 @@
                                     <div class="w-1/6">{{ $item['price'] }}</div>
                                     <div class="w-1/6">{{ $item['quantity'] * $item['price'] }}</div>
                                     <div class="w-1/6">
-                                    <!-- Button to remove item -->
-                                    <a href="{{ '/user/destroy-cart/' . $key }}" class="text-red-500">Remove</a>
-
+                                        <!-- Button to remove item -->
+                                        <a href="{{ '/user/destroy-cart/' . $key }}" class="text-red-500">Remove</a>
                                     </div>
                                 </div>
                             @endforeach
                         </form>
 
                         <div class="mt-4">
-                            <p class="font-semibold">Total:
+                            <p class="font-semibold">Sub Total:
                                 {{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}
                             </p>
+                        </div>
+
+                        <div class="mt-4">
+                            <!-- Checkout Button -->
+                            <form action="{{ route('user.orders.store') }}" method="POST">
+                                @csrf
+                                <!-- Pass cart items to the order -->
+                                @foreach ($cart as $key => $item)
+                                    <input type="hidden" name="cart[{{ $key }}][key]" value="{{ $key }}">
+                                    <input type="hidden" name="cart[{{ $key }}][quantity]" value="{{ $item['quantity'] }}">
+                                    <input type="hidden" name="cart[{{ $key }}][price]" value="{{ $item['price'] }}">
+                                @endforeach
+                                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
+                                    Checkout
+                                </button>
+                            </form>
                         </div>
                     @else
                         <p>Your cart is empty.</p>
