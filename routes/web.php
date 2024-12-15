@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('voucher-purchases', App\Http\Controllers\Admin\VoucherPurchaseController::class)->shallow()->only(['index', 'show', 'edit','update']);
     });
 
+    // halo
 
     Route::group([
         'prefix' => 'user',
