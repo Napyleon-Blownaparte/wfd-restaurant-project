@@ -4,16 +4,28 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Voucher;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    /*
+    CARA MENGECEK PEMAKAIAN VOUCHER :
+    Cari tahu berapa kali relasi User-Voucher yang bersangkutan ada di tabel Order
+    */
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $orders = auth()->user()->orders;
+
+        return view('user-views.orders.index', [
+            'orders' => $orders,
+        ]);
     }
 
     /**
@@ -21,7 +33,10 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $cart = session()->get('cart', []);
+        return view('user-views.orders.create', [
+            'cart' => $cart,
+        ]);
     }
 
     /**
@@ -29,8 +44,54 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cart = session()->get('cart');
+
+        if (!isset($cart) || empty($cart)) {
+            return redirect()->route('user.orders.create')->with('error', 'Your cart is empty.');
+        }
+
+        $subTotal = 0;
+        foreach ($cart as $item) {
+            $subTotal += $item['quantity'] * $item['price'];
+        }
+
+        $voucher = Voucher::find(1);
+        if ($request->has('voucher_id')) {
+            $voucher = Voucher::find($request->voucher_id);
+        }
+
+        $totalPrice = $subTotal;
+        if ($voucher) {
+            $discount = $voucher->discount / 100;
+            $totalPrice -= $subTotal * $discount;
+        }
+
+        $order = new Order();
+        $order->user_id = auth()->id();
+        $order->voucher_id = $voucher ? $voucher->id : null;
+        $order->sub_total_price = $subTotal;
+        $order->total_price = $totalPrice;
+        $order->order_date_time = now();
+        $order->last_update_date_time = now();
+        $order->order_status = 'Pending';
+        $order->payment_method = 'Credit Card';
+        $order->payment_status = 'Unpaid';
+        $order->table_number = 10;
+        $order->save();
+
+        foreach ($cart as $key => $item) {
+            $order->menus()->attach($key, [
+                'quantity' => $item['quantity'],
+            ]);
+        }
+
+        // Kosongkan cart setelah order disimpan
+        session()->forget('cart');
+
+        // Redirect ke halaman konfirmasi atau tampilan lainnya
+        return redirect()->route('user.orders.index')->with('success', 'Order placed successfully!');
     }
+
 
     /**
      * Display the specified resource.

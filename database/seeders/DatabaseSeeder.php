@@ -15,15 +15,21 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'Test User',
-           'email' => 'test@example.com',
+            'name' => 'Test Admin',
+           'email' => 'test_admin@example.com',
             'is_admin' => 1,
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+           'email' => 'test_user@example.com',
+            'is_admin' => 0,
         ]);
 
         $this->call([
             MenuSeeder::class,
-            OrderSeeder::class,
             VoucherSeeder::class,
+            // OrderSeeder::class,
         ]);
     }
 }

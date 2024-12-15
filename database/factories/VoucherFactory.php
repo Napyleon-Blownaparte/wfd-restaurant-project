@@ -23,7 +23,7 @@ class VoucherFactory extends Factory
             'description' => $this->faker->sentence(),
             'start_date' => $currentDate,
             'end_date' => $currentDate->addDay(7),
-            'discount' => $this->faker->numberBetween(30000, 70000),
+            'discount' => $this->faker->numberBetween(5, 50),
             'price' => $this->faker->numberBetween(30000, 70000),
         ];
     }

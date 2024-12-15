@@ -17,8 +17,8 @@
 
                 <!-- Cart Button -->
                 <div class="mb-8">
-                    <button 
-                        id="cart-button" 
+                    <button
+                        id="cart-button"
                         class="bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
                         View Cart (0)
                     </button>
@@ -32,6 +32,7 @@
 
                             <!-- Menu -->
                             @foreach($category->menus as $menu)
+                            <a href="{{ route("user.menus.show", $menu->id) }}">
                                 <div class="flex items-start md:items-center justify-between">
                                     <div class="flex items-start md:items-center">
                                         <img src={{asset('storage/' . $menu->image)}} alt={{$menu->name}} class="w-14 h-14 md:w-16 md:h-16 rounded-md">
@@ -41,13 +42,14 @@
                                         </div>
                                     </div>
                                     <div id="cart-button-{{ $menu->id }}" class="flex items-center space-x-4">
-                                        <button 
+                                        <button
                                             class="bg-amber-300 text-black px-3 py-1 text-sm font-bold rounded hover:bg-amber-400 transition"
                                             onclick="addToCart({{ $menu->id }}, '{{ $menu->name }}', {{ $menu->price }})">
                                             Add to Cart
                                         </button>
                                     </div>
                                 </div>
+                                </a>
                             @endforeach
 
                         </div>
@@ -61,7 +63,7 @@
     <!-- Modal -->
     <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-gray-900 text-white rounded-lg w-11/12 md:w-1/2 p-6 relative">
-            <button 
+            <button
                 class="absolute top-4 right-4 text-gray-400 hover:text-white"
                 onclick="toggleCartModal(false)">
                 &times;
@@ -96,13 +98,13 @@
                         <p class="text-sm text-gray-400">${item.price} x ${item.quantity}</p>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <button 
+                        <button
                             class="bg-red-500 text-white px-2 py-1 rounded font-bold hover:bg-red-600 transition"
                             onclick="decrementCart(${menuId})">
                             -
                         </button>
                         <span class="text-white font-bold">${item.quantity}</span>
-                        <button 
+                        <button
                             class="bg-green-500 text-white px-2 py-1 rounded font-bold hover:bg-green-600 transition"
                             onclick="incrementCart(${menuId})">
                             +
@@ -149,13 +151,13 @@
         if (quantity > 0) {
             cartContainer.innerHTML = `
                 <div class="flex items-center space-x-2">
-                    <button 
+                    <button
                         class="bg-red-500 text-white px-2 py-1 rounded font-bold hover:bg-red-600 transition"
                         onclick="decrementCart(${menuId})">
                         -
                     </button>
                     <span class="text-white font-bold">${quantity}</span>
-                    <button 
+                    <button
                         class="bg-green-500 text-white px-2 py-1 rounded font-bold hover:bg-green-600 transition"
                         onclick="incrementCart(${menuId})">
                         +
@@ -164,7 +166,7 @@
             `;
         } else {
             cartContainer.innerHTML = `
-                <button 
+                <button
                     class="bg-amber-300 text-black px-3 py-1 text-sm font-bold rounded hover:bg-amber-400 transition"
                     onclick="addToCart(${menuId}, '${cart[menuId]?.name}', ${cart[menuId]?.price})">
                     Add to Cart

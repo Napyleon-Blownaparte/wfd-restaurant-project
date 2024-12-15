@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Voucher;
+use App\Models\VoucherPurchase;
 use Illuminate\Http\Request;
 
-class VoucherController extends Controller
+class VoucherPurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $vouchers = Voucher::all();
-        return view('user-views.vouchers.index', [
-            'vouchers' => $vouchers,
-        ]);
+        //
     }
 
     /**
@@ -38,17 +35,15 @@ class VoucherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Voucher $voucher)
+    public function show(VoucherPurchase $voucherPurchase)
     {
-        return view('user-views.vouchers.show', [
-            'voucher' => $voucher,
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Voucher $voucher)
+    public function edit(VoucherPurchase $voucherPurchase)
     {
         //
     }
@@ -56,7 +51,7 @@ class VoucherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Voucher $voucher)
+    public function update(Request $request, VoucherPurchase $voucherPurchase)
     {
         //
     }
@@ -64,7 +59,7 @@ class VoucherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Voucher $voucher)
+    public function destroy(VoucherPurchase $voucherPurchase)
     {
         //
     }

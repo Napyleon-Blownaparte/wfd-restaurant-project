@@ -15,7 +15,9 @@ class MenuController extends Controller
     public function index()
     {
         $categories = MenuCategory::with('menus')->get();
-        return view ('menus.index', compact('categories'));
+        return view ('user-views.menus.index', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -31,9 +33,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $menu = Menu::create([
-            'image' => $request->file('image_url')->store('/menus/image', 'public'),
-        ]);
+
     }
 
     /**
@@ -41,7 +41,9 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
-        //
+        return view('user-views.menus.show', [
+            'menu' => $menu,
+        ]);
     }
 
     /**
