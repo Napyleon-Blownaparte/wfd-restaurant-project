@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignIdFor(User::class, 'user_id');
-            // Foreign id for voucher
+            $table->foreignIdFor(Voucher::class, 'voucher_id')->nullable();
             $table->integer('sub_total_price');
             $table->integer('total_price');
             $table->dateTime('order_date_time');

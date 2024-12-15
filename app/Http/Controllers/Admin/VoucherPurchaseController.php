@@ -1,23 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Menu;
-use App\Models\MenuCategory;
+use App\Models\VoucherPurchase;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class VoucherPurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = MenuCategory::with('menus')->get();
-        return view ('user-views.menus.index', [
-            'categories' => $categories,
-        ]);
+        //
     }
 
     /**
@@ -33,23 +29,21 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Menu $menu)
+    public function show(VoucherPurchase $voucherPurchase)
     {
-        return view('user-views.menus.show', [
-            'menu' => $menu,
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Menu $menu)
+    public function edit(VoucherPurchase $voucherPurchase)
     {
         //
     }
@@ -57,7 +51,7 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, VoucherPurchase $voucherPurchase)
     {
         //
     }
@@ -65,7 +59,7 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Menu $menu)
+    public function destroy(VoucherPurchase $voucherPurchase)
     {
         //
     }
