@@ -1,30 +1,34 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
 <x-app-layout>
-    <div class="flex mt-16">
+    <div class="mt-16">
         <!-- Sidebar -->
-        <div class="w-64 bg-gradient-to-b from-black to-gray-800 text-white flex flex-col fixed h-full">
+        <div class="sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 text-white sm:w-full sm:mt-4">
             <div class="p-6 border-b border-gray-700 flex items-center justify-between">
                 <h2 class="text-xl font-bold">Order Status</h2>
             </div>
-            <nav class="flex-1 p-4 overflow-y-auto scrollbar-hide">
-                <ul>
+            <nav class="flex p-4 overflow-hidden scrollbar-hide relative">
+                <ul class="flex sm:flex-row sm:space-x-4 sm:overflow-x-auto overflow-hidden pl-4 pr-4 scrollbar-hide">
                     <li>
-                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Order Received</button>
+                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">Order Received</button>
                     </li>
                     <li>
-                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Preparing</button>
+                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">Preparing</button>
                     </li>
                     <li>
-                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Ready to Serve</button>
+                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">Ready to Serve</button>
                     </li>
                     <li>
-                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Completed</button>
+                        <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">Completed</button>
                     </li>
                 </ul>
             </nav>
         </div>
 
+
         <!-- Main Content -->
-        <div class="flex-1 ml-64 p-8 bg-gray-100">
+        <div class="flex-1 p-8 bg-gray-100">
             <!-- Filters -->
             <div class="mb-6 flex items-center space-x-4">
                 <button class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700">Today</button>
@@ -105,6 +109,26 @@
             </div>
             
         </div>
-        
-    </div>
+</div>
 </x-app-layout>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const ulElement = document.querySelector("ul");
+    
+    // Function to check if the screen is small and enable horizontal scrolling
+    const handleScrollForSmallScreens = () => {
+        if (window.innerWidth <= 640) { // Tailwind's 'sm' breakpoint (640px)
+            ulElement.style.overflowX = "auto"; // Enable horizontal scrolling
+            ulElement.style.display = "flex"; // Ensure flex layout
+        } else {
+            ulElement.style.overflowX = "hidden"; // Remove scrolling for larger screens
+        }
+    };
+
+    // Initial check on page load
+    handleScrollForSmallScreens();
+
+    // Recheck on window resize
+    window.addEventListener("resize", handleScrollForSmallScreens);
+});
+</script>
