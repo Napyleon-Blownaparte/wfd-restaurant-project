@@ -35,6 +35,9 @@ Route::get('/home', function () {
 // Route::get('/orders', function () {
 //     return view('admin/orders');
 // });
+Route::get('/payment', function () {
+    return view('payment');
+});
 
 // Route::get('/menu', function () {
 //     return view('menus.index');
