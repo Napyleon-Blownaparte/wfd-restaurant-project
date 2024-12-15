@@ -59,7 +59,7 @@
                                 <input type="hidden" name="cart[{{ $key }}][price]" value="{{ $item['price'] }}">
                             @endforeach
                             <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition">
-                                Checkout
+                                Place Order
                             </button>
                         </form>
                     </div>

@@ -21,9 +21,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders;
+        $orders = auth()->user()->orders->where('order_status', 'Pending');
 
-        return view('user-views.orders.index', [
+        return view('user-views.orders.list-order', [
+            'orders' => $orders,
+        ]);
+    }
+
+    public function payment($id) {
+        $orders = Order::find($id);
+        return view('user-views.orders.payment', [
             'orders' => $orders,
         ]);
     }
@@ -89,7 +96,7 @@ class OrderController extends Controller
         session()->forget('cart');
 
         // Redirect ke halaman konfirmasi atau tampilan lainnya
-        return redirect()->route('user.orders.index')->with('success', 'Order placed successfully!');
+        return redirect()->route('user.menus.index')->with('success', 'Order placed successfully!');
     }
 
 
