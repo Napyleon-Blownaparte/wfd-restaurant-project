@@ -27,6 +27,10 @@ Route::get('/payment', function () {
     return view('payment');
 });
 
+Route::get('/list-order', function () {
+    return view('list-order');
+});
+
 // Route::get('/menu', function () {
 //     return view('menus.index');
 // });
