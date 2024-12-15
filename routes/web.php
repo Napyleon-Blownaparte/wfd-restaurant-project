@@ -42,7 +42,6 @@ Route::get('/list-order', function () {
 // Route::get('/orders', function () {
 //     return view('admin/orders');
 // });
->>>>>>>>> Temporary merge branch 2
 
 // Route::get('/menu', function () {
 //     return view('menus.index');
