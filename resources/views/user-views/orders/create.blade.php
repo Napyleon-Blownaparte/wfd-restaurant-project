@@ -20,7 +20,7 @@
                     <form action="{{ route('user.orders.store') }}" method="POST" id="cartForm">
                         @csrf
 
-                        <!-- Cart Items -->
+                        <!-- Menu -->
                         <div class="space-y-6">
                             @foreach ($cart as $key => $item)
                                 <div class="flex items-start justify-between py-4 border-b border-gray-700">
@@ -77,12 +77,4 @@
             });
         });
     </script>
-
-    <style>
-        /* @media (max-width: 768px) {
-            .p-5 {
-                padding-top: 3rem !important;
-            }
-        } */
-    </style>
 </x-app-layout>
