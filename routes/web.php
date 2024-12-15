@@ -24,6 +24,13 @@ Route::get('/home', function () {
     return view('landing-page');
 });
 
+Route::get('/payment', function () {
+    return view('payment');
+});
+
+Route::get('/list-order', function () {
+    return view('list-order');
+});
 // Route::get('/add-new-menu', function () {
 //     return view('admin/add-menu');
 // });
@@ -35,9 +42,7 @@ Route::get('/home', function () {
 // Route::get('/orders', function () {
 //     return view('admin/orders');
 // });
-Route::get('/payment', function () {
-    return view('payment');
-});
+>>>>>>>>> Temporary merge branch 2
 
 // Route::get('/menu', function () {
 //     return view('menus.index');
