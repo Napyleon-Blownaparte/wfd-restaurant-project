@@ -23,13 +23,13 @@
 <body>
     <div class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            <div class="bg-neutral-950 text-white h-screen p-6 sm:p-10">
+            <div class="bg-neutral-950 text-white h-full p-6 sm:p-10">
                 <h2 class="font-title2 text-3xl md:text-4xl font-bold text-amber-300 mt-2 mb-4">Payment</h2>
                 <div class="mt-5 px-4 lg:px-24">
                     <!-- Content Section -->
                     <div class="flex flex-col md:flex-row h-auto sm:h-screen">
                         <!-- Left Section -->
-                        <div class="w-full lg:w-1/2 bg-neutral-800 bg-opacity-90 p-6 rounded-lg shadow-lg m-5">
+                        <div class="w-max lg:w-1/2 bg-neutral-800 bg-opacity-90 p-6 rounded-lg shadow-lg m-5">
                             <div class="flex items-center gap-4 mb-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
@@ -68,10 +68,27 @@
                             @endforeach
 
                             <div class="flex justify-between items-center mt-6">
-                                <p class="text-lg sm:text-2xl font-semibold">SUBTOTAL</p>
+                                <p class="text-lg sm:text-2xl font-semibold">Subtotal</p>
                                 <p class="text-lg sm:text-2xl font-bold">IDR
                                     {{ number_format($orders->sub_total_price, 0, ',', '.') }}</p>
                             </div>
+
+                            <div class="flex justify-between items-center mt-6 border-b">
+                                <p class="text-lg sm:text-2xl font-semibold">Voucher</p>
+                                <p class="text-lg sm:text-2xl font-semibold">20%</p>
+                            </div>
+
+                            <div class="flex justify-between items-center mt-8">
+                                <p class="text-xl sm:text-3xl font-black">TOTAL</p>
+                                <p class="text-xl sm:text-3xl font-black">34732429</p>
+                            </div>
+
+                            <button
+                                id="cart-button"
+                                class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
+                                Check Out
+                            </button>
+                            
                         </div>
 
                         <!-- Right Section -->
