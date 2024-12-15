@@ -11,16 +11,21 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'order_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function menus()
     {
-        return $this->belongsToMany(Menu::class, 'menu_orders', 'order_id');
+        return $this->belongsToMany(Menu::class, 'menu_orders', 'order_id', 'menu_id');
     }
 
     public function menu_orders()
     {
         return $this->hasMany(MenuOrder::class, 'order_id');
+    }
+
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class, 'voucher_id');
     }
 }

@@ -11,7 +11,7 @@
                 <p class="font-title3 mt-4 text-gray-300 text-sm sm:text-base max-w-xs sm:max-w-sm md:max-w-md mx-auto">
                     We only use the five-star quality for our menu, Come and get the richness in every food we serve.
                 </p>
-                <a href="#" class="mt-8 inline-block font-title3 bg-amber-400 text-black py-3 px-6 rounded-3xl hover:bg-amber-500 text-sm sm:text-base">
+                <a href="{{ route('user.menus.index') }}" class="mt-8 inline-block font-title3 bg-amber-400 text-black py-3 px-6 rounded-3xl hover:bg-amber-500 text-sm sm:text-base">
                     Order Menu
                 </a>
             </div>
@@ -45,7 +45,7 @@
                     </a>
                 </div>
             </div>
-        
+
             <!-- Card 2 -->
             <div class="bg-neutral-800 bg-opacity-90 rounded-lg overflow-hidden shadow-lg flex flex-col">
                 <img src="images/salmon.jpg" alt="Salmon Sushi" class="w-full h-48 object-cover">
@@ -62,7 +62,7 @@
                     </a>
                 </div>
             </div>
-        
+
             <!-- Card 3 -->
             <div class="bg-neutral-800 bg-opacity-90 rounded-lg overflow-hidden shadow-lg flex flex-col">
                 <img src="images/sashimi.jpg" alt="Sashimi Bowl" class="w-full h-48 object-cover">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <!-- About Section -->
         <div class="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8 px-4 sm:px-6 lg:px-12">

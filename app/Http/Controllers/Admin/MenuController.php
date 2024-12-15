@@ -13,7 +13,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -29,7 +29,10 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $menu = Menu::create([
+            'image' => $request->file('image_url')->store('/menus/image', 'public'),
+        ]);
+
     }
 
     /**
