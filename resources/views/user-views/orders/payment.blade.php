@@ -18,6 +18,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.clientKey') }}"></script>
 </head>
 
 <body>
@@ -75,24 +78,26 @@
 
                             <div class="flex justify-between items-center mt-6 border-b">
                                 <p class="text-lg sm:text-2xl font-semibold">Voucher</p>
-                                <p class="text-lg sm:text-2xl font-semibold">20%</p>
+                                <p class="text-lg sm:text-2xl font-semibold">{{ $orders->voucher->discount }}%</p>
                             </div>
 
                             <div class="flex justify-between items-center mt-8">
                                 <p class="text-xl sm:text-3xl font-black">TOTAL</p>
-                                <p class="text-xl sm:text-3xl font-black">34732429</p>
+                                <p class="text-xl sm:text-3xl font-black">IDR
+                                    {{ number_format($orders->total_price, 0, ',', '.') }}</p>
                             </div>
 
-                            <button
-                                id="cart-button"
-                                class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
-                                Check Out
-                            </button>
-                            
+                            <a href="{{ route('user.orders.pay', $orders->id) }}"><button id="cart-button"
+                                    class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition"
+                                    data-snap-token="{{ $orders->snap_token }}">
+                                    Checkout
+                                </button>
+                            </a>
+
                         </div>
 
                         <!-- Right Section -->
-                        <div class="w-full lg:w-1/2 p-6 shadow-lg mt-6 lg:mt-0">
+                        <div id="snap-container" class="w-full lg:w-1/2 p-6 shadow-lg mt-6 lg:mt-0">
                             <!-- API Content Goes Here -->
                         </div>
                     </div>
@@ -101,5 +106,16 @@
         </div>
     </div>
 </body>
+
+<script type="text/javascript">
+    var payButton = document.getElementById('cart-button');
+    payButton.addEventListener('click', function() {
+        var snapToken = button.getAttribute('data-snap-token');
+        window.snap.embed(snapToken, {
+            embedId: 'snap-container'
+        });
+
+    });
+</script>
 
 </html>
