@@ -41,90 +41,6 @@
         <li>
             <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
         </li>
-        <!-- <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">A</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">B</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">C</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">A</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">B</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">C</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">A</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">B</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">C</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">A</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">B</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">C</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">A</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">B</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">C</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">A</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">B</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">C</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">A</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">B</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">C</button>
-        </li>
-        <li>
-            <button class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">D</button>
-        </li> -->
     </ul>
 </nav>
 
@@ -132,7 +48,7 @@
 
 
 
-     
+
 
         <!-- Main Content -->
         <div class="flex flex-col sm:ml-0 p-8 bg-gray-100">
@@ -325,13 +241,13 @@
     }
 
     .scrollbar-hide {
-        -ms-overflow-style: none; 
-        scrollbar-width: none;  
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 </style>
 
 <script>
-    
+
     // Add Category Modal
     document.getElementById('add-category-btn').addEventListener('click', () => {
         document.getElementById('add-category-modal').classList.remove('hidden');
@@ -411,7 +327,7 @@
         }
     });
 
-    
+
         // Edit Category Modal
     const editCategoryBtn = document.getElementById('edit-category-btn');
     editCategoryBtn.addEventListener('click', () => {
@@ -455,12 +371,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateButtonVisibility() {
         const isOverflowing = hasOverflow(ul);
-        const isLargeScreen = window.innerWidth >= 1024; 
+        const isLargeScreen = window.innerWidth >= 1024;
 
         if (isLargeScreen && isOverflowing) {
             scrollLeftBtn.classList.remove('hidden');
             scrollRightBtn.classList.remove('hidden');
-            const buttonWidth = scrollLeftBtn.offsetWidth || 48; 
+            const buttonWidth = scrollLeftBtn.offsetWidth || 48;
             ul.style.paddingLeft = `${buttonWidth + 16}px`;
             ul.style.paddingRight = `${buttonWidth + 16}px`;
         } else {
@@ -492,5 +408,5 @@ document.addEventListener('DOMContentLoaded', function () {
     const observer = new ResizeObserver(updateButtonVisibility);
     observer.observe(ul);
 });
-     
+
 </script>

@@ -13,7 +13,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-
+        return view('admin-views.menus.index');
     }
 
     /**
@@ -29,9 +29,6 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $menu = Menu::create([
-            'image' => $request->file('image_url')->store('/menus/image', 'public'),
-        ]);
 
     }
 
