@@ -11,9 +11,9 @@ class VoucherController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Voucher $voucher)
     {
-        //
+        return view('admin-views.vouchers.index');
     }
 
     /**
@@ -21,7 +21,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

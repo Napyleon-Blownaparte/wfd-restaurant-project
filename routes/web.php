@@ -24,17 +24,17 @@ Route::get('/home', function () {
     return view('landing-page');
 });
 
-// Route::get('/add-new-menu', function () {
-//     return view('admin/add-menu');
-// });
+Route::get('/add-new-menu', function () {
+    return view('admin-views.menus.index');
+});
 
 // Route::get('/add-new-voucher', function () {
 //     return view('admin/add-voucher');
 // });
 
-// Route::get('/orders', function () {
-//     return view('admin/orders');
-// });
+Route::get('/orders', function () {
+    return view('admin-views.orders.index');
+});
 
 // Route::get('/menu', function () {
 //     return view('menus.index');
