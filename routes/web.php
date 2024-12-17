@@ -29,7 +29,7 @@ Route::get('/payment', function () {
 });
 
 Route::get('/list-order', function () {
-    return view('list-order');
+    return view('user-views.orders.list-order');
 });
 
 Route::get('/add-new-menu', function () {

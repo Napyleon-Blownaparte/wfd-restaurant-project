@@ -6,7 +6,7 @@
                 <h2 class="text-xl font-bold">Order Status</h2>
             </div>
             <nav class="flex p-4 overflow-hidden scrollbar-hide relative">
-                <ul class="flex sm:flex-row sm:space-x-4 sm:overflow-x-auto overflow-hidden pl-4 pr-4 scrollbar-hide">
+                <ul class="flex sm:flex-row sm:space-x-4 sm:overflow-x-auto overflow-hidden pl-4 pr-4 ">
                     <li>
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="pending">
