@@ -86,7 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
         // CART ROUTES
         Route::post('/store-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'store'])->name('cart.store');
         Route::post('/update-cart', [App\Http\Controllers\User\CartController::class, 'update'])->name('cart.update');
-        Route::delete('/destroy-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('user.cart.destroy');
+        Route::delete('/destroy-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
 
         // VOUCHER CART ROUTES
         // Route::post('/store-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'store'])->name('cart.store');
@@ -95,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         // ORDER ROUTES
         Route::get('/orders/payment/{order}', [App\Http\Controllers\User\OrderController::class, 'payment'])->name('orders.payment');
-        Route::post('/orders/status/{order}', [App\Http\Controllers\User\OrderController::class, 'status_update'])->name('orders.status');
+        Route::post('/orders/status/{id}', [App\Http\Controllers\User\OrderController::class, 'status_update'])->name('orders.status');
 
         Route::resource('orders', App\Http\Controllers\User\OrderController::class)->shallow()->only(['index', 'create', 'store', 'show']);
         Route::resource('menus', App\Http\Controllers\User\MenuController::class)->shallow()->only(['index', 'show']);
