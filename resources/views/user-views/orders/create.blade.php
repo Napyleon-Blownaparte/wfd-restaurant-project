@@ -84,20 +84,21 @@
                             @endforeach
 
                             @if ($cart && $vouchers->isNotEmpty())
-                                <div class="mt-6">
-                                    <label for="voucher" class="block text-gray-300 font-semibold mb-2">Select
-                                        Voucher</label>
-                                    <select name="voucher_id" id="voucher"
-                                        class="border px-3 py-2 rounded-md text-black w-full">
-                                        <option value="">-- Choose a Voucher --</option>
-                                        @foreach ($vouchers as $voucher)
-                                            <option value="{{ $voucher->id }}">
-                                                {{ $voucher->name }} - Discount: {{ $voucher->discount }}%
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
+
+
+                            <div class="mt-6">
+                                <label for="voucher" class="block text-gray-300 font-semibold mb-2">Select Voucher</label>
+                                <select name="voucher_id" id="voucher" class="border px-3 py-2 rounded-md text-black w-full">
+                                    <option value="">-- Choose a Voucher or No Voucher --</option> <!-- Default option -->
+                                    <option value="0">No Voucher</option> <!-- Option for no voucher -->
+                                    @foreach ($vouchers as $voucher)
+                                        <option value="{{ $voucher->id }}">
+                                            {{ $voucher->name }} - Discount: {{ $voucher->discount }}%
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
 
                             <div class="mt-4">
                                 <p class="text-lg font-semibold">
@@ -124,12 +125,6 @@
     </div>
 
     <script>
-        document.querySelectorAll('.quantity-input').forEach(input => {
-            input.addEventListener('input', function() {
-                document.getElementById('cartForm').submit(); // Submit the form when quantity is changed
-            });
-        });
-
         document.addEventListener('DOMContentLoaded', function() {
             const subtotalElement = document.getElementById('subtotal');
             const totalAfterDiscountElement = document.getElementById('total-after-discount');
@@ -143,7 +138,11 @@
                 const selectedOption = voucherDropdown.options[voucherDropdown.selectedIndex];
                 const discountMatch = selectedOption.text.match(
                 /(\d+)%/); // Ambil angka dari diskon (e.g. 20%)
-                const discountPercentage = discountMatch ? parseFloat(discountMatch[1]) : 0;
+
+                let discountPercentage = 0;
+                if (selectedOption.value !== "0" && discountMatch) {
+                    discountPercentage = parseFloat(discountMatch[1]);
+                }
 
                 // Hitung total setelah diskon
                 const discountAmount = subtotal * (discountPercentage / 100);
@@ -152,6 +151,12 @@
                 // Tampilkan hasil
                 totalAfterDiscountElement.textContent = `$${totalAfterDiscount.toFixed(2)}`;
             });
+
+
+            // Simulasikan perubahan awal jika voucher tidak dipilih
+            if (!voucherDropdown.value) {
+                totalAfterDiscountElement.textContent = `$${subtotal.toFixed(2)}`;
+            }
         });
     </script>
 </x-app-layout>

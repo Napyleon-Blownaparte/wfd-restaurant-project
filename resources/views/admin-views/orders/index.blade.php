@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="mt-16">
+    <div>
         <!-- Sidebar -->
-        <div class="sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 text-white sm:w-full sm:mt-4">
-            <div class="p-6 border-b border-gray-700 flex items-center justify-between">
+        <div class="sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 text-white sm:w-full">
+            <div class="pt-16 pb-6 px-6 border-b border-gray-700 flex items-center justify-between">
                 <h2 class="text-xl font-bold">Order Status</h2>
             </div>
             <nav class="flex p-4 overflow-hidden scrollbar-hide relative">
@@ -52,24 +52,31 @@
 
                 <!-- Filters -->
                 <form method="GET" action="{{ route('admin.orders.index') }}">
-                    <div class="mb-6 flex items-center space-x-4">
-                        <!-- Periode Filter -->
-                        <button type="submit" name="period" value="today"
-                            class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 {{ request('period') == 'today' ? 'bg-gray-600' : '' }}">
-                            Today
-                        </button>
-                        <button type="submit" name="period" value="this_week"
-                            class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 {{ request('period') == 'this_week' ? 'bg-gray-600' : '' }}">
-                            This Week
-                        </button>
-                        <input type="date" name="start_date" value="{{ request('start_date') }}"
-                            class="py-2 px-4 border rounded">
-                        <input type="date" name="end_date" value="{{ request('end_date') }}"
-                            class="py-2 px-4 border rounded">
-                        <button type="submit" name="period" value="custom"
-                            class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">Filter</button>
+                    <div class="mb-6 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-4">
+                        <div class="flex gap-4 w-full sm:w-auto">
+                            <button type="submit" name="period" value="today"
+                                class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'today' ? 'bg-gray-600' : '' }}">
+                                Today
+                            </button>
+                            <button type="submit" name="period" value="this_week"
+                                class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'this_week' ? 'bg-gray-600' : '' }}">
+                                This Week
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+                            <input type="date" name="start_date" value="{{ request('start_date') }}"
+                                class="py-2 px-4 border rounded w-full">
+                            <input type="date" name="end_date" value="{{ request('end_date') }}"
+                                class="py-2 px-4 border rounded w-full">
+                            <button type="submit" name="period" value="custom"
+                                class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full sm:w-auto">
+                                Filter
+                            </button>
+                        </div>
                     </div>
                 </form>
+
+
 
                 @if ($orders->isEmpty())
                 <div class=" mb-64">
@@ -111,9 +118,30 @@
                             <span>Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-4 relative">
                             <button
-                                class="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">Done</button>
+                                id="dropdownButton"
+                                class="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">
+                                Select Option
+                            </button>
+                            <div
+                                id="dropdownMenu"
+                                class="hidden absolute w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2">
+                                <ul class="py-2">
+                                    <li>
+                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option A</button>
+                                    </li>
+                                    <li>
+                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option B</button>
+                                    </li>
+                                    <li>
+                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option C</button>
+                                    </li>
+                                    <li>
+                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option D</button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -121,8 +149,20 @@
                     {{ $orders->links() }}
                 </div>
             @endif
-
-
         </div>
     </div>
+    <script>
+        const dropdownButton = document.getElementById('dropdownButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        dropdownButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    </script>
 </x-app-layout>
