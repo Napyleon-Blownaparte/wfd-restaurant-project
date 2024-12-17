@@ -28,8 +28,6 @@
             </div>
             @endif
 
-
-
             <!-- Settings Dropdown -->
 
 
@@ -174,9 +172,5 @@
                 </div>
             @endauth
         </div>
-
-
-
-
     </div>
 </nav>
