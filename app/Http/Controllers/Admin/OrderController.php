@@ -12,10 +12,59 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
-        //
+        // Ambil status pesanan dan periode dari input
+        $order_status = $request->input('order_status');
+        $period = $request->input('period');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        // Mulai query untuk mengambil data order
+        $query = Order::query();
+
+        // Filter berdasarkan status pesanan
+        if ($order_status) {
+            $query->where('order_status', $order_status);
+        }
+
+        // Filter berdasarkan periode
+        if ($period) {
+            $today = now()->startOfDay()->addDay(1);
+            $thisWeekStart = now()->startOfWeek();
+            $thisWeekEnd = now()->endOfWeek();
+
+            switch ($period) {
+                case 'today':
+                    $query->whereDate('created_at', $today);
+                    break;
+
+                case 'this_week':
+                    $query->whereBetween('created_at', [$thisWeekStart, $thisWeekEnd]);
+                    break;
+
+                case 'custom':
+                    // Filter berdasarkan custom date range (start_date dan end_date)
+                    if ($start_date && $end_date) {
+                        $query->whereBetween('created_at', [$start_date, $end_date]);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        // Ambil data order setelah filter diterapkan dengan pagination
+        $orders = $query->paginate(5); // Ambil 10 data per halaman
+
+        // Kirim hasil ke view
+        return view('admin-views.orders.index', [
+            'orders' => $orders
+        ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
