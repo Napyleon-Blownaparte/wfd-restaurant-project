@@ -1,11 +1,8 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.tailwindcss.com"></script>
 <x-app-layout>
-    <div class="mt-16">
+    <div>
         <!-- Sidebar -->
-        <div class="sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 text-white sm:w-full sm:mt-4">
-            <div class="p-6 border-b border-gray-700 flex items-center justify-between">
+        <div class="sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 text-white sm:w-full">
+            <div class="pt-16 pb-6 px-6 border-b border-gray-700 flex items-center justify-between">
                 <h2 class="text-xl font-bold">Categories</h2>
                 <a href="{{ route('admin.menu-categories.create') }}">
                     <button id="add-category-btn"
@@ -104,7 +101,7 @@
                         <div class="p-4">
                             <h3 class="font-bold text-lg">{{ $menu->name }}</h3>
                             <p class="text-gray-600 text-sm">{{ $menu->description }}</p>
-                            <p class="text-gray-800 font-bold mt-2">Rp {{ $menu->price }}</p>
+                            <p class="text-gray-800 font-bold mt-2">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
                         </div>
                     </div>
                 @endforeach
