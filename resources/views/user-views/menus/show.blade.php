@@ -12,6 +12,7 @@
                             id="quantity" 
                             name="quantity" 
                             min="0" 
+                            value="1"
                             class="w-full sm:w-20 bg-gray-900 text-white px-3 py-2 rounded-lg border border-gray-700 focus:ring-2 focus:ring-amber-300 focus:outline-none">
                     </div>
                     <button 
