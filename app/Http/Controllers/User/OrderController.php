@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders->where('order_status', 'Pending');
+        $orders = auth()->user()->orders->where('order_status', 'pending');
 
         return view('user-views.orders.list-order', [
             'orders' => $orders,
