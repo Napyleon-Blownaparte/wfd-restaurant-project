@@ -13,7 +13,7 @@
         </div>
 
             <!-- Right Section -->
-            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto">
+            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto min-h-screen">
 
                 <!-- Cart Button -->
                 <div class="mb-8">
@@ -41,9 +41,12 @@
                                             <p class="font-title3 text-sm text-gray-300">{{$menu->description}}</p>
                                         </div>
                                     </div>
-                                    <div id="cart-button-{{ $menu->id }}" class="flex flex-wrap items-center justify-end gap-2 md:gap-4">
+                                    <div id="cart-button-{{ $menu->id }}" class="flex flex-col items-center gap-1">
+                                        <span class="text-sm md:text-base font-semibold text-white">
+                                            Rp {{ number_format($menu->price, 0, ',', '.') }}
+                                        </span>
                                         <button
-                                            class="bg-amber-300 text-black px-2 py-1 text-xs md:text-sm font-bold rounded hover:bg-amber-400 transition">
+                                            class="bg-amber-300 text-black px-2 py-1 text-xs md:text-sm font-bold rounded hover:bg-amber-400 transition w-24 text-center">
                                             Add to Cart
                                         </button>
                                     </div>

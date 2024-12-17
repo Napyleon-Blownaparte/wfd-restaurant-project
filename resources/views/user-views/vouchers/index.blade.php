@@ -1,9 +1,9 @@
 <x-app-layout>
-    <div class="bg-black text-white">
+    <div class="bg-black text-white p-5">
         <div class="flex flex-col md:flex-row">
 
             <!-- Left Section -->
-            <div class="md:w-1/2 w-full h-auto md:h-[calc(100vh-4rem)] md:sticky md:top-[4rem] flex items-center justify-center bg-cover bg-center p-10 relative"
+            <div class="md:w-1/2 w-full h-auto md:h-[calc(100vh-4rem)] md:sticky md:top-[4rem] flex items-center justify-center bg-cover bg-center p-10 pt-20 relative"
                  style="background-image: url('/images/home.jpg');">
                 <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 <div class="relative text-center">
@@ -13,7 +13,7 @@
             </div>
 
             <!-- Right Section -->
-            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto">
+            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto min-h-screen">
 
                 <div class="mb-10">
                     <h3 class="text-yellow-400 text-3xl font-bold mb-5">Available Coupons</h3>

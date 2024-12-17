@@ -91,7 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
         // CART ROUTES
         Route::post('/store-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'store'])->name('cart.store');
         Route::post('/update-cart', [App\Http\Controllers\User\CartController::class, 'update'])->name('cart.update');
-        Route::delete('/destroy-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('user.cart.destroy');
+        Route::delete('/destroy-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
 
         // VOUCHER CART ROUTES
         // Route::post('/store-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'store'])->name('cart.store');
