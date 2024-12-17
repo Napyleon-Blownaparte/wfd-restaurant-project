@@ -73,7 +73,6 @@ class CartController extends Controller
      */
     public function update(Request $request)
     {
-        dd('update');
         $cart = session()->get('cart', []);
 
         // Perbarui kuantitas untuk setiap item dalam cart
@@ -94,14 +93,19 @@ class CartController extends Controller
      */
     public function destroy($key)
     {
-        dd('destroy');
+        // Retrieve the cart from session
         $cart = session()->get('cart', []);
 
+        // Remove the item from the cart
         if (isset($cart[$key])) {
             unset($cart[$key]);
         }
 
+        // Update the session with the modified cart
         session()->put('cart', $cart);
-        return redirect()->back();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Item removed from cart.');
     }
+
 }
