@@ -31,15 +31,6 @@ class OrderController extends Controller
     public function payment($id)
     {
         $orders = Order::find($id);
-        return view('user-views.orders.payment', [
-            'orders' => $orders,
-        ]);
-    }
-
-    public function pay($id)
-    {
-
-        $orders = Order::find($id);
 
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.serverKey');
@@ -62,7 +53,13 @@ class OrderController extends Controller
         ];
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-    }
+        $orders->snap_token = $snapToken;
+        $orders->save();
+
+        return view('user-views.orders.payment', [
+            'orders' => $orders,
+        ]);
+    }   
 
     /**
      * Show the form for creating a new resource.

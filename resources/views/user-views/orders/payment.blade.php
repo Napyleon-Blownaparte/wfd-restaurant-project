@@ -87,13 +87,11 @@
                                     {{ number_format($orders->total_price, 0, ',', '.') }}</p>
                             </div>
 
-                            <a href="{{ route('user.orders.pay', $orders->id) }}"><button id="cart-button"
-                                    class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition"
-                                    data-snap-token="{{ $orders->snap_token }}">
-                                    Checkout
-                                </button>
-                            </a>
-
+                            <button id="cart-button"
+                                class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
+                                Checkout
+                            </button>
+                            <input type="hidden" id="snap-token" value="{{ $orders->snap_token }}">
                         </div>
 
                         <!-- Right Section -->
@@ -110,11 +108,10 @@
 <script type="text/javascript">
     var payButton = document.getElementById('cart-button');
     payButton.addEventListener('click', function() {
-        var snapToken = button.getAttribute('data-snap-token');
+        var snapToken = document.getElementById('snap-token').value;
         window.snap.embed(snapToken, {
             embedId: 'snap-container'
         });
-
     });
 </script>
 
