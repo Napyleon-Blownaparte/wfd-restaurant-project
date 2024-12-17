@@ -28,8 +28,6 @@
             </div>
             @endif
 
-
-
             <!-- Settings Dropdown -->
 
 
@@ -113,27 +111,26 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         @if(!Auth::check() || auth()->user()->is_admin == false)
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="pt-2 pb-3 space-y-1 bg-black">
             <a href="#home"
-                class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Home</a>
             <a href="#menu"
-                class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Menu</a>
+                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Menu</a>
             <a href="#about"
-                class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">About</a>
+                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">About</a>
             <a href="#contact"
-                class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Contact</a>
         </div>
         @elseif(auth()->user()->is_admin == true)
-        <div class="pt-2 pb-3 space-y-1">
-            <a href="{{ route('admin.menu-categories.menus.index', 1) }}" class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Our Menu</a>
-            <a href="{{ route('admin.vouchers.index') }}" class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Vouchers</a>
-            <a href="{{ route('admin.orders.index') }}" class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Orders</a>
+        <div class="pt-2 pb-3 space-y-1 bg-black">
+            <a href="{{ route('admin.menu-categories.menus.index', 1) }}" class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Our Menu</a>
+            <a href="{{ route('admin.vouchers.index') }}" class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Vouchers</a>
+            <a href="{{ route('admin.orders.index') }}" class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Orders</a>
         </div>
         @endif
 
         <!-- Responsive Settings Options -->
-
-        <div class="pt-4 pb-1 border-t border-gray-700">
+        <div class="pt-4 pb-1 border-t border-gray-700 bg-black">
             @auth
                 <div class="px-4">
                     <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
@@ -141,11 +138,11 @@
                 </div>
                 <div class="mt-3 space-y-1">
                     <a href="{{ route('profile.edit') }}"
-                        class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                        class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="{{ route('logout') }}"
-                            class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium"
+                            class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium"
                             onclick="event.preventDefault(); this.closest('form').submit();">
                             Log Out
                         </a>
@@ -154,20 +151,15 @@
             @else
                 <div class="space-y-1">
                     <a href="{{ route('login') }}"
-                        class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Log
+                        class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Log
                         in</a>
-
-
                 </div>
                 <div class="space-y-1">
                     <a href="{{ route('register') }}"
-                        class="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Register</a>
+                        class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Register</a>
                 </div>
             @endauth
         </div>
-
-
-
-
     </div>
+
 </nav>

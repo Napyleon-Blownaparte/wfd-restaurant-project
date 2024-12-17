@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'voucher_id',
+        'sub_total_price',
+        'total_price',
+        'snap_token',
+        'order_date_time',
+        'last_update_date_time',
+        'order_status',
+        'payment_method',
+        'payment_status',
+        'payment_date_time',
+        'table_number',
+    ];
 
     protected $guarded = [];
 
