@@ -26,7 +26,7 @@
 <body>
     <div class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            <div class="bg-neutral-950 text-white h-full p-6 sm:p-10">
+            <div class="bg-neutral-950 text-white h-screen md:h-full p-6 sm:p-10">
                 <h2 class="font-title2 text-3xl md:text-4xl font-bold text-amber-300 mt-2 mb-4">Payment</h2>
                 <div class="mt-5 px-4 lg:px-24">
                     <!-- Content Section -->
