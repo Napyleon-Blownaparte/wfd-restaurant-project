@@ -71,7 +71,7 @@
                     <form action="{{ route('admin.menu-categories.destroy', $menuCategory->id) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to delete this category?')">
                         @csrf
-                        @method('DELETE') 
+                        @method('DELETE')
 
                         <button type="submit" id="delete-category-btn"
                             class="px-4 py-2 bg-red-600 text-white hover:bg-red-700 rounded">
@@ -112,7 +112,7 @@
 
 
 
-            <!-- Add Category Modal -->
+            {{-- <!-- Add Category Modal -->
             <div id="add-category-modal"
                 class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                 <div class="bg-white rounded-lg shadow-lg w-full max-w-sm p-6 mx-4">
@@ -134,7 +134,7 @@
                             class="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400 w-full sm:w-auto">Cancel</button>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 

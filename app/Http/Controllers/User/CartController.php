@@ -49,7 +49,7 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->route('user.menus.index');
+        return redirect()->route('user.menus.index')->with('success', 'Tambah item berhasil.');
     }
 
     /**
@@ -105,7 +105,7 @@ class CartController extends Controller
         session()->put('cart', $cart);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Item removed from cart.');
+        return redirect()->back()->with('success', 'Item batal ditambahkan.');
     }
 
 }
