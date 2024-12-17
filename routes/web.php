@@ -88,6 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         // VOUCHER ROUTES
         Route::post('/vouchers/pay/{id}', [App\Http\Controllers\User\VoucherController::class, 'payment'])->name('vouchers.payment');
+        Route::get('/voucher/payment', [App\Http\Controllers\User\VoucherController::class, 'payment_index'])->name('vouchers.payment_index');
 
         // ORDER ROUTES
         Route::get('/orders/payment/{order}', [App\Http\Controllers\User\OrderController::class, 'payment'])->name('orders.payment');
