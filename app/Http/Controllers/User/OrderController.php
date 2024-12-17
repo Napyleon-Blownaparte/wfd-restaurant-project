@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders->where('payment_status', 'Unpaid');
+        $orders = auth()->user()->orders;
 
         return view('user-views.orders.list-order', [
             'orders' => $orders,
@@ -52,14 +52,14 @@ class OrderController extends Controller
             ],
         ];
 
-        foreach ($orders->menus as $menu) {
-            $params['item_details'][] = [
-                'id' => $menu->id,
-                'price' => $menu->price,
-                'quantity' => $menu->menu_orders->first()->quantity,
-                'name' => $menu->name,
-            ];
-        }
+        // foreach ($orders->menus as $menu) {
+        //     $params['item_details'][] = [
+        //         'id' => $menu->id,
+        //         'price' => $menu->price,
+        //         'quantity' => $menu->menu_orders->first()->quantity,
+        //         'name' => $menu->name,
+        //     ];
+        // }
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $orders->snap_token = $snapToken;

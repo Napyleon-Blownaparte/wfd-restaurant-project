@@ -47,19 +47,42 @@
                                         </div>
                                     </div>
 
-                                    <!-- Total di Sebelah Kanan -->
-                                    <div class="flex flex-row w-full lg:w-auto justify-between">
-                                        <p class="text-md md:text-xl font-semibold mr-4">Total : </p>
-                                        <p class="text-md md:text-xl font-semibold">RP
-                                            {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                                    <div class="flex flex-col lg:flex-row justify-between items-center pt-4">
+                                        <div class="flex flex-col gap-2">
+                                            <p class="text-md font-medium text-gray-300">Order Status:
+                                                @php
+                                                    $statusColors = [
+                                                        'Pending' => 'text-red-400',
+                                                        'Preparing' => 'text-yellow-400',
+                                                        'Ready' => 'text-blue-400',
+                                                        'Completed' => 'text-green-400',
+                                                    ];
+                                                @endphp
+                                                <span
+                                                    class="font-semibold {{ $statusColors[$order->order_status] ?? 'text-white' }}">
+                                                    {{ ucfirst($order->order_status) }}
+                                                </span>
+                                            </p>
+                                            <p class="text-md font-medium text-gray-300">Payment Status:
+                                                <span
+                                                    class="font-semibold {{ $order->payment_status == 'Paid' ? 'text-green-400' : 'text-red-400' }}">
+                                                    {{ ucfirst($order->payment_status) }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="flex items-center mt-4 lg:mt-0">
+                                            <p class="text-xl font-semibold text-white mr-4">Total:</p>
+                                            <p class="text-xl font-bold text-amber-300">IDR
+                                                {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                                        </div>
                                     </div>
+
                                 </div>
+                            </a>
+                        @endforeach
                     </div>
-                    </a>
-                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </x-app-layout>
