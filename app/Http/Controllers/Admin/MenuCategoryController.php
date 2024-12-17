@@ -37,7 +37,9 @@ class MenuCategoryController extends Controller
             'name' => $validated['name'],
         ]);
 
-        return redirect()->route('admin.menu-categories.menus.index', $menuCategory->id)->with('success', 'Kategori menu berhasil ditambahkan');
+        return redirect()
+            ->route('admin.menu-categories.menus.index', $menuCategory->id)
+            ->with('success', 'Kategori menu berhasil ditambahkan');
     }
 
     /**
@@ -53,7 +55,9 @@ class MenuCategoryController extends Controller
      */
     public function edit(MenuCategory $menuCategory)
     {
-        //
+        return view('admin-views.menu-categories.edit', [
+            'menuCategory' => $menuCategory,
+        ]);
     }
 
     /**
@@ -68,7 +72,9 @@ class MenuCategoryController extends Controller
         $menuCategory->name = $validated['name'];
         $menuCategory->save();
 
-        return redirect()->route('admin.menu-categories.menus.index', $menuCategory->id)->with('success', 'Kategori menu berhasil diupdate');
+        return redirect()
+            ->route('admin.menu-categories.menus.index', $menuCategory->id)
+            ->with('success', 'Kategori menu berhasil diupdate');
     }
 
     /**
@@ -78,7 +84,20 @@ class MenuCategoryController extends Controller
     {
         $menuCategory->delete();
 
-        return redirect()->route('admin.menu-categories.menus.index', $menuCategory->id - 1)->with('success', 'Kategori menu berhasil dihapus');
+        // Mencari kategori menu sebelumnya
+        $nextCategory = MenuCategory::where('id', '<', $menuCategory->id)
+            ->latest()
+            ->first();
 
+        // Jika tidak ada kategori yang lebih kecil, cari kategori setelahnya
+        if (!$nextCategory) {
+            $nextCategory = MenuCategory::where('id', '>', $menuCategory->id)
+                ->oldest()
+                ->first();
+        }
+
+        return redirect()
+            ->route('admin.menu-categories.menus.index', $nextCategory->id)
+            ->with('success', 'Kategori menu berhasil dihapus');
     }
 }
