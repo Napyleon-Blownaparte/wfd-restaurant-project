@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-black text-white">
+    <div class="bg-black text-white p-5">
         <div class="flex flex-col md:flex-row">
 
             <!-- Left Section -->
@@ -13,7 +13,7 @@
             </div>
 
             <!-- Right Section -->
-            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto">
+            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto min-h-screen">
 
                 <div class="mb-10">
                     <h3 class="text-yellow-400 text-3xl font-bold mb-5">Available Coupons</h3>

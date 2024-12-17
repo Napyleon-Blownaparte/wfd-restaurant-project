@@ -3,7 +3,7 @@
         <div class="flex flex-col md:flex-row">
 
             <!-- Left Section -->
-            <div class="hidden md:block md:w-1/2 w-full h-auto md:h-[calc(100vh-4rem)] md:sticky md:top-[4rem] items-center justify-center bg-cover bg-center p-10 relative"
+            <div class="hidden md:block md:w-1/2 w-full h-auto md:h-[calc(100vh-4rem)] md:sticky md:top-[4rem] items-center justify-center bg-cover bg-center p-10 pt-20 md:pt-0 relative"
                 style="background-image: url('/images/home.jpg');">
                 <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 <div class="relative text-center flex flex-col items-center justify-center h-full">
@@ -13,7 +13,7 @@
             </div>
 
             <!-- Right Section -->
-            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto">
+            <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto min-h-screen">
                 <h3 class="text-amber-300 text-xl font-bold mb-6">Your Cart</h3>
 
                 @if ($cart)
@@ -102,6 +102,9 @@
 
                             <div class="mt-4">
                                 <p class="text-lg font-semibold">
+                                    Total after Discount:
+                                    <span id="total-after-discount"
+                                        class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
                                     Total after Discount:
                                     <span id="total-after-discount"
                                         class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
