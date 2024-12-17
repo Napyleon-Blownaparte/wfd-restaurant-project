@@ -15,10 +15,10 @@
             <!-- Navigation Links -->
             @if(!Auth::check() || auth()->user()->is_admin == false)
             <div class="hidden md:flex space-x-8">
-                <a href="#home" class="text-white text-lg font-navbar hover:text-amber-500 transition">Home</a>
+                <a href="/home" class="text-white text-lg font-navbar hover:text-amber-500 transition">Home</a>
                 <a href="{{ route('user.menus.index') }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Menu</a>
-                <a href="#about" class="text-white text-lg font-navbar hover:text-amber-500 transition">About</a>
-                <a href="#contact" class="text-white text-lg font-navbar hover:text-amber-500 transition">Contact</a>
+                <a href="{{ route('user.orders.index') }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Order</a>
+                <a href="{{ route('user.vouchers.index') }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Voucher</a>
             </div>
             @elseif(auth()->user()->is_admin == true)
             <div class="hidden md:flex space-x-8">
@@ -112,14 +112,14 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         @if(!Auth::check() || auth()->user()->is_admin == false)
         <div class="pt-2 pb-3 space-y-1 bg-black">
-            <a href="#home"
+            <a href="/home"
                 class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Home</a>
-            <a href="#menu"
+            <a href="{{ route('user.menus.index') }}"
                 class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Menu</a>
-            <a href="#about"
-                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">About</a>
-            <a href="#contact"
-                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            <a href="{{ route('user.orders.index') }}"
+                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Order</a>
+            <a href="{{ route('user.vouchers.index') }}"
+                class="block text-white hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium">Voucher</a>
         </div>
         @elseif(auth()->user()->is_admin == true)
         <div class="pt-2 pb-3 space-y-1 bg-black">
