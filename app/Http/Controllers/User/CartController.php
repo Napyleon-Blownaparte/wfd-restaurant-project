@@ -49,7 +49,7 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->back();
+        return redirect()->route('user.menus.index');
     }
 
     /**
@@ -73,6 +73,7 @@ class CartController extends Controller
      */
     public function update(Request $request)
     {
+        dd('update');
         $cart = session()->get('cart', []);
 
         // Perbarui kuantitas untuk setiap item dalam cart
@@ -93,6 +94,7 @@ class CartController extends Controller
      */
     public function destroy($key)
     {
+        dd('destroy');
         $cart = session()->get('cart', []);
 
         if (isset($cart[$key])) {

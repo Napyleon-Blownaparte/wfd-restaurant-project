@@ -36,7 +36,6 @@
                                                class="border px-2 py-1 w-16 quantity-input text-black rounded-md"
                                                data-key="{{ $key }}">
                                         <p class="font-bold">${{ $item['quantity'] * $item['price'] }}</p>
-                                        <a href="{{ '/user/destroy-cart/' . $key }}" class="text-red-500 hover:underline">Remove</a>
                                     </div>
                                 </div>
                             @endforeach
