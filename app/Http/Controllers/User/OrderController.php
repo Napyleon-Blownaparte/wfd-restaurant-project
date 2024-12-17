@@ -132,7 +132,7 @@ class OrderController extends Controller
         session()->forget('cart');
 
         // Redirect ke halaman konfirmasi atau tampilan lainnya
-        return redirect()->route('user.menus.index')->with('success', 'Order placed successfully!');
+        return redirect()->route('user.menus.index')->with('success', 'Order berhasil dibuat.');
     }
 
 
