@@ -2,7 +2,7 @@
 <nav x-data="{ open: false, scrolled: false }" x-on:scroll.window="scrolled = window.scrollY > 0"
     :class="scrolled ? 'bg-black bg-opacity-50 backdrop-blur-md border-b border-gray-700' : 'bg-transparent'"
     class="fixed top-0 left-0 w-full z-50 transition duration-300 ease-in-out">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <div class="flex items-center">
@@ -27,8 +27,6 @@
                 <a href="{{ route('admin.orders.index') }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Orders</a>
             </div>
             @endif
-
-
 
             <!-- Settings Dropdown -->
 
@@ -174,9 +172,5 @@
                 </div>
             @endauth
         </div>
-
-
-
-
     </div>
 </nav>
