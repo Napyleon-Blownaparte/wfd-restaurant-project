@@ -21,6 +21,11 @@ class VoucherController extends Controller
         ]);
     }
 
+    public function payment_index()
+    {
+        return view('user-views.vouchers.payment_index');
+    }
+
     public function payment($id)
     {
         $user = Auth::user();
@@ -55,7 +60,7 @@ class VoucherController extends Controller
         ];
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-        VoucherPurchase::create([
+        $voucher_purchases = VoucherPurchase::create([
             'created_at' => now(),
             'updated_at' => now(),
             'user_id' => $user->id,
@@ -64,7 +69,7 @@ class VoucherController extends Controller
             'payment_status' => 'Unpaid',
         ]);
 
-        return view();
+        return view(route('user.vouchers.payment_index'), $voucher_purchases);
     }
 
     /**
