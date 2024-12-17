@@ -5,13 +5,12 @@
             <div class="pt-16 pb-6 px-6 border-b border-gray-700 flex items-center justify-between">
                 <h2 class="text-xl font-bold">Order Status</h2>
             </div>
-            <nav class="flex p-4 overflow-hidden scrollbar-hide relative">
-                <ul class="flex sm:flex-row sm:space-x-4 sm:overflow-x-auto overflow-hidden pl-4 pr-4 ">
+            <nav class="flex p-4 overflow-x-auto scrollbar-hide relative">
+                <ul class="flex sm:flex-row sm:space-x-4 sm:overflow-x-auto overflow-x-scroll pl-4 pr-4">
                     <li>
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="pending">
-                            <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                            <button type="submit" class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
                                 Order Received
                             </button>
                         </form>
@@ -19,8 +18,7 @@
                     <li>
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="preparing">
-                            <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                            <button type="submit" class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
                                 Preparing
                             </button>
                         </form>
@@ -28,8 +26,7 @@
                     <li>
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="ready">
-                            <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                            <button type="submit" class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
                                 Ready to Serve
                             </button>
                         </form>
@@ -37,8 +34,7 @@
                     <li>
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="completed">
-                            <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                            <button type="submit" class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
                                 Completed
                             </button>
                         </form>
@@ -47,12 +43,13 @@
             </nav>
         </div>
 
+
         <!-- Main Content -->
         <div class="flex-1 p-8 bg-gray-100">
 
                 <!-- Filters -->
                 <form method="GET" action="{{ route('admin.orders.index') }}">
-                    <div class="mb-6 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-4">
+                    <div class="mb-6 flex flex-wrap items-center gap-4">
                         <div class="flex gap-4 w-full sm:w-auto">
                             <button type="submit" name="period" value="today"
                                 class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'today' ? 'bg-gray-600' : '' }}">
@@ -63,11 +60,11 @@
                                 This Week
                             </button>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+                        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                             <input type="date" name="start_date" value="{{ request('start_date') }}"
-                                class="py-2 px-4 border rounded w-full">
+                                class="py-2 px-4 border rounded w-full sm:w-auto">
                             <input type="date" name="end_date" value="{{ request('end_date') }}"
-                                class="py-2 px-4 border rounded w-full">
+                                class="py-2 px-4 border rounded w-full sm:w-auto">
                             <button type="submit" name="period" value="custom"
                                 class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full sm:w-auto">
                                 Filter
@@ -75,8 +72,6 @@
                         </div>
                     </div>
                 </form>
-
-
 
                 @if ($orders->isEmpty())
                 <div class=" mb-64">
