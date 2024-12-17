@@ -35,7 +35,7 @@
                                         <!-- Total di Sebelah Kanan -->
                                         <div class="flex flex-row w-full lg:w-auto justify-between">
                                             <p class="text-md md:text-xl font-semibold mr-4">Total : </p>
-                                            <p class="text-md md:text-xl font-semibold">IDR
+                                            <p class="text-md md:text-xl font-semibold">RP
                                                 {{ number_format($order->total_price, 0, ',', '.') }}</p>
                                         </div>
                                     </div>

@@ -83,7 +83,7 @@
 
                             <div class="flex justify-between items-center mt-8">
                                 <p class="text-xl sm:text-3xl font-black">TOTAL</p>
-                                <p class="text-xl sm:text-3xl font-black">IDR
+                                <p class="text-xl sm:text-3xl font-black">RP
                                     {{ number_format($orders->total_price, 0, ',', '.') }}</p>
                             </div>
 

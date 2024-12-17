@@ -1,11 +1,12 @@
 <?php
 
+use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +15,9 @@ return new class extends Migration
         Schema::create('voucher_purchases', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('payment_method');
+            $table->foreignIdFor(User::class, 'user_id');
+            $table->foreignIdFor(Voucher::class, 'voucher_id');
+            $table->string('snap_token');
             $table->dateTime('payment_date_time')->nullable();
             $table->string('payment_status');
         });

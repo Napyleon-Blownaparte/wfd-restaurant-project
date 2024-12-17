@@ -24,7 +24,6 @@ return new class extends Migration
             $table->dateTime('order_date_time');
             $table->dateTime('last_update_date_time')->nullable();
             $table->string('order_status');
-            $table->string('payment_method');
             $table->string('payment_status');
             $table->dateTime('payment_date_time')->nullable();
             $table->integer('table_number')->nullable();

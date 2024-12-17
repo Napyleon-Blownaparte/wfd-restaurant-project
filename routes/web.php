@@ -24,22 +24,10 @@ Route::get('/home', function () {
     return view('landing-page');
 });
 
-Route::get('/payment', function () {
-    return view('payment');
-});
-
-Route::get('/list-order', function () {
-    return view('user-views.orders.list-order');
-});
-
 Route::get('/add-new-menu', function () {
     return view('admin-views.menus.index');
 });
 
-
-Route::get('/buy-voucher', function () {
-    return view('vouchers.buy-voucher');
-});
 
 // Route::get('/add-new-voucher', function () {
 //     return view('admin/add-voucher');
@@ -97,6 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::post('/store-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'store'])->name('cart.store');
         // Route::post('/update--voucher-cart', [App\Http\Controllers\User\CartController::class, 'update'])->name('cart.update');
         // Route::get('/destroy-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
+
+        // VOUCHER ROUTES
+        Route::post('/vouchers/pay/{id}', [App\Http\Controllers\User\VoucherController::class, 'payment'])->name('vouchers.payment');
 
         // ORDER ROUTES
         Route::get('/orders/payment/{order}', [App\Http\Controllers\User\OrderController::class, 'payment'])->name('orders.payment');
