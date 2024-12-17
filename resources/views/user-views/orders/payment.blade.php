@@ -86,7 +86,8 @@
                                 <div class="flex justify-between">
                                     <span class="text-sm sm:text-base text-gray-300">Payment Date:</span>
                                     <span
-                                        class="text-sm sm:text-base text-white font-semibold">{{ $orders->payment_date_time ?? '-' }}</span>
+                                        class="text-sm sm:text-base text-white font-semibold">    {{ $orders->payment_date_time ? \Carbon\Carbon::parse($orders->payment_date_time)->format('d M Y, H:i') : '-' }}
+                                    </span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-sm sm:text-base text-gray-300">Payment Status:</span>

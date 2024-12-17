@@ -65,7 +65,7 @@
                                             </p>
                                             <p class="text-md font-medium text-gray-300">Payment Status:
                                                 <span
-                                                    class="font-semibold {{ $order->payment_status == 'paid' ? 'text-green-400' : 'text-red-400' }}">
+                                                    class="font-semibold {{ $order->payment_status == 'Paid' ? 'text-green-400' : 'text-red-400' }}">
                                                     {{ ucfirst($order->payment_status) }}
                                                 </span>
                                             </p>
