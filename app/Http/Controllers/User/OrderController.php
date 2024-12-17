@@ -21,11 +21,47 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders;
+        $orders = auth()->user()->orders->where('order_status', 'Pending');
 
-        return view('user-views.orders.index', [
+        return view('user-views.orders.list-order', [
             'orders' => $orders,
         ]);
+    }
+
+    public function payment($id)
+    {
+        $orders = Order::find($id);
+        return view('user-views.orders.payment', [
+            'orders' => $orders,
+        ]);
+    }
+
+    public function pay($id)
+    {
+
+        $orders = Order::find($id);
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $orders->id,
+                'gross_amount' => $orders->total_price,
+            ],
+            'customer_details' => [
+                'first_name' => $orders->user->name,
+                'email' => $orders->user->email,
+            ],
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
     }
 
     /**
@@ -89,7 +125,7 @@ class OrderController extends Controller
         session()->forget('cart');
 
         // Redirect ke halaman konfirmasi atau tampilan lainnya
-        return redirect()->route('user.orders.index')->with('success', 'Order placed successfully!');
+        return redirect()->route('user.menus.index')->with('success', 'Order placed successfully!');
     }
 
 

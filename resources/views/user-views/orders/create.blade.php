@@ -36,7 +36,6 @@
                                                class="border px-2 py-1 w-16 quantity-input text-black rounded-md"
                                                data-key="{{ $key }}">
                                         <p class="font-bold">${{ $item['quantity'] * $item['price'] }}</p>
-                                        <a href="{{ '/user/destroy-cart/' . $key }}" class="text-red-500 hover:underline">Remove</a>
                                     </div>
                                 </div>
                             @endforeach
@@ -59,7 +58,7 @@
                                 <input type="hidden" name="cart[{{ $key }}][price]" value="{{ $item['price'] }}">
                             @endforeach
                             <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition">
-                                Checkout
+                                Place Order
                             </button>
                         </form>
                     </div>

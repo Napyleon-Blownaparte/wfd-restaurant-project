@@ -17,23 +17,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing-page');
 });
 
 Route::get('/home', function () {
     return view('landing-page');
 });
 
-// Route::get('/add-new-menu', function () {
-//     return view('admin/add-menu');
-// });
+Route::get('/payment', function () {
+    return view('payment');
+});
+
+Route::get('/list-order', function () {
+    return view('list-order');
+});
+
+Route::get('/add-new-menu', function () {
+    return view('admin-views.menus.index');
+});
 
 // Route::get('/add-new-voucher', function () {
 //     return view('admin/add-voucher');
 // });
 
 // Route::get('/orders', function () {
-//     return view('admin/orders');
+//     return view('admin-views.orders.index');
 // });
 
 // Route::get('/menu', function () {
@@ -62,10 +70,11 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
 
         Route::resource('orders', App\Http\Controllers\Admin\OrderController::class)->shallow()->only(['index', 'show', 'edit', 'update']);
-        Route::resource('menus', App\Http\Controllers\Admin\MenuController::class)->shallow();
-        Route::resource('menu-categories', App\Http\Controllers\Admin\MenuCategoryController::class)->shallow()->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
-        Route::resource('vouchers', App\Http\Controllers\Admin\VoucherController::class)->shallow()->only(['index', 'create', 'edit', 'store', 'update', 'delete']);
-        Route::resource('voucher-purchases', App\Http\Controllers\Admin\VoucherPurchaseController::class)->shallow()->only(['index', 'show', 'edit','update']);
+        Route::resource('menu-categories.menus', App\Http\Controllers\Admin\MenuController::class)->shallow();
+        Route::resource('menu-categories', App\Http\Controllers\Admin\MenuCategoryController::class)->shallow();
+        Route::resource('vouchers', App\Http\Controllers\Admin\VoucherController::class)->shallow();
+
+        Route::resource('voucher-purchases', App\Http\Controllers\Admin\VoucherPurchaseController::class)->shallow()->only(['index', 'show', 'edit', 'update']);
     });
 
     Route::group([
@@ -80,10 +89,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/destroy-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
 
         // VOUCHER CART ROUTES
-        Route::post('/store-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'store'])->name('cart.store');
-        Route::post('/update--voucher-cart', [App\Http\Controllers\User\CartController::class, 'update'])->name('cart.update');
-        Route::get('/destroy-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
+        // Route::post('/store-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'store'])->name('cart.store');
+        // Route::post('/update--voucher-cart', [App\Http\Controllers\User\CartController::class, 'update'])->name('cart.update');
+        // Route::get('/destroy-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
 
+        // ORDER ROUTES
+        Route::get('/orders/payment/{order}', [App\Http\Controllers\User\OrderController::class, 'payment'])->name('orders.payment');
+        Route::get('/orders/pay/{id}', [App\Http\Controllers\User\OrderController::class, 'pay'])->name('orders.pay');
 
         Route::resource('orders', App\Http\Controllers\User\OrderController::class)->shallow()->only(['index', 'create', 'store', 'show']);
         Route::resource('menus', App\Http\Controllers\User\MenuController::class)->shallow()->only(['index', 'show']);
@@ -92,6 +104,4 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

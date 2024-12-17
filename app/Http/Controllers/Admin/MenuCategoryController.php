@@ -21,7 +21,7 @@ class MenuCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin-views.menu-categories.create');
     }
 
     /**
@@ -29,7 +29,15 @@ class MenuCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $menuCategory = MenuCategory::create([
+            'name' => $validated['name'],
+        ]);
+
+        return redirect()->route('admin.menu-categories.menus.index', $menuCategory->id)->with('success', 'Kategori menu berhasil ditambahkan');
     }
 
     /**
@@ -53,7 +61,14 @@ class MenuCategoryController extends Controller
      */
     public function update(Request $request, MenuCategory $menuCategory)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $menuCategory->name = $validated['name'];
+        $menuCategory->save();
+
+        return redirect()->route('admin.menu-categories.menus.index', $menuCategory->id)->with('success', 'Kategori menu berhasil diupdate');
     }
 
     /**
@@ -61,6 +76,9 @@ class MenuCategoryController extends Controller
      */
     public function destroy(MenuCategory $menuCategory)
     {
-        //
+        $menuCategory->delete();
+
+        return redirect()->route('admin.menu-categories.menus.index', $menuCategory->id - 1)->with('success', 'Kategori menu berhasil dihapus');
+
     }
 }
