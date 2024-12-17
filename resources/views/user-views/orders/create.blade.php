@@ -84,6 +84,8 @@
                             @endforeach
 
                             @if ($cart && $vouchers->isNotEmpty())
+
+
                             <div class="mt-6">
                                 <label for="voucher" class="block text-gray-300 font-semibold mb-2">Select Voucher</label>
                                 <select name="voucher_id" id="voucher" class="border px-3 py-2 rounded-md text-black w-full">
@@ -149,6 +151,7 @@
                 // Tampilkan hasil
                 totalAfterDiscountElement.textContent = `$${totalAfterDiscount.toFixed(2)}`;
             });
+
 
             // Simulasikan perubahan awal jika voucher tidak dipilih
             if (!voucherDropdown.value) {

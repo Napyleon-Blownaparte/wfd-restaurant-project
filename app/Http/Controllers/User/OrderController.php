@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders->where('order_status', 'Pending');
+        $orders = auth()->user()->orders->where('payment_status', 'Unpaid');
 
         return view('user-views.orders.list-order', [
             'orders' => $orders,
@@ -43,7 +43,7 @@ class OrderController extends Controller
 
         $params = [
             'transaction_details' => [
-                'order_id' => $orders->id,
+                'order_id' => rand(),
                 'gross_amount' => $orders->total_price,
             ],
             'customer_details' => [
@@ -52,6 +52,15 @@ class OrderController extends Controller
             ],
         ];
 
+        foreach ($orders->menus as $menu) {
+            $params['item_details'][] = [
+                'id' => $menu->id,
+                'price' => $menu->price,
+                'quantity' => $menu->menu_orders->first()->quantity,
+                'name' => $menu->name,
+            ];
+        }
+
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $orders->snap_token = $snapToken;
         $orders->save();
@@ -59,7 +68,7 @@ class OrderController extends Controller
         return view('user-views.orders.payment', [
             'orders' => $orders,
         ]);
-    }   
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -68,14 +77,38 @@ class OrderController extends Controller
     {
         // Dapatkan voucher dengan start_date <= now() <= end_date
         $vouchers = Voucher::where('start_date', '<=', now())
-                            ->where('end_date', '>=', now())
-                            ->get();
+            ->where('end_date', '>=', now())
+            ->get();
 
         $cart = session()->get('cart', []);
         return view('user-views.orders.create', [
             'cart' => $cart,
             'vouchers' => $vouchers,
         ]);
+    }
+
+    public function status_update(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $json = json_decode($request->get('json'));
+        
+        if ($json->transaction_status == 'settlement' || $json->transaction_status == 'capture') {
+            // dd($json);
+            $order->payment_status = 'Paid';
+            $order->payment_date_time = now();
+        } else if ($json->transaction_status == 'pending') {
+            $order->payment_status = 'Pending';
+        } else if ($json->transaction_status == 'deny') {
+            $order->payment_status = 'Denied';
+        } else if ($json->transaction_status == 'expire') {
+            $order->payment_status = 'Expired';
+        } else if ($json->transaction_status == 'cancel') {
+            $order->payment_status = 'Canceled';
+        }
+
+        $order->save();
+
+        return redirect()->route('user.orders.index')->with('success', 'Order status updated successfully!');
     }
 
     /**
