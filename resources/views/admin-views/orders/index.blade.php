@@ -50,35 +50,35 @@
         <!-- Main Content -->
         <div class="flex-1 p-8 bg-gray-100">
 
-                <!-- Filters -->
-                <form method="GET" action="{{ route('admin.orders.index') }}">
-                    <div class="mb-6 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-4">
-                        <div class="flex gap-4 w-full sm:w-auto">
-                            <button type="submit" name="period" value="today"
-                                class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'today' ? 'bg-gray-600' : '' }}">
-                                Today
-                            </button>
-                            <button type="submit" name="period" value="this_week"
-                                class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'this_week' ? 'bg-gray-600' : '' }}">
-                                This Week
-                            </button>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
-                            <input type="date" name="start_date" value="{{ request('start_date') }}"
-                                class="py-2 px-4 border rounded w-full">
-                            <input type="date" name="end_date" value="{{ request('end_date') }}"
-                                class="py-2 px-4 border rounded w-full">
-                            <button type="submit" name="period" value="custom"
-                                class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full sm:w-auto">
-                                Filter
-                            </button>
-                        </div>
+            <!-- Filters -->
+            <form method="GET" action="{{ route('admin.orders.index') }}">
+                <div class="mb-6 flex flex-wrap sm:flex-nowrap items-start sm:items-center gap-4">
+                    <div class="flex gap-4 w-full sm:w-auto">
+                        <button type="submit" name="period" value="today"
+                            class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'today' ? 'bg-gray-600' : '' }}">
+                            Today
+                        </button>
+                        <button type="submit" name="period" value="this_week"
+                            class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'this_week' ? 'bg-gray-600' : '' }}">
+                            This Week
+                        </button>
                     </div>
-                </form>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+                        <input type="date" name="start_date" value="{{ request('start_date') }}"
+                            class="py-2 px-4 border rounded w-full">
+                        <input type="date" name="end_date" value="{{ request('end_date') }}"
+                            class="py-2 px-4 border rounded w-full">
+                        <button type="submit" name="period" value="custom"
+                            class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full sm:w-auto">
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </form>
 
 
 
-                @if ($orders->isEmpty())
+            @if ($orders->isEmpty())
                 <div class=" mb-64">
                     <svg class="svg-icon text-slate-400 m-auto translate-y-20" width="200" height="200"
                         style="fill: currentColor;" viewBox="0 0 1024 1024" version="1.1"
@@ -89,20 +89,43 @@
                     <p class="text-slate-500 text-center translate-y-[6em]">Pencarian tidak ditemukan :(</p>
                 </div>
             @else
-
                 <!-- Orders List -->
                 @foreach ($orders as $order)
                     <div class="bg-white shadow rounded-lg p-6 mb-4">
                         <div class="mb-4">
-                            <h3 class="text-lg font-bold">Customer Name: {{ $order->user->name }}</h3>
+                            <h3 class="text-xl font-bold">Customer Name: {{ $order->user->name }}</h3>
                             <hr class="my-2">
                         </div>
 
                         <div class="mb-4">
-                            <p class="text-sm text-gray-600">Order DateTime: {{ $order->created_at }}</p>
+                            <p class="text-lg text-gray-600">Order Date & Time: {{ \Carbon\Carbon::parse($order->created_at)->format('d F Y H:i') }}</p>
                         </div>
 
-                        <ul class="mb-4">
+                        <div class="mb-4">
+                            <p class="text-lg text-gray-600">Last Updated: {{ \Carbon\Carbon::parse($order->updated_at)->format('d F Y H:i') }}</p>
+                        </div>
+
+
+
+
+                        @php
+                            $paymentStatusClass = match ($order->payment_status) {
+                                'Paid' => 'text-green-500',
+                                default => 'text-red-500',
+                            };
+                            $paymentStatus = ucfirst($order->payment_status);
+                        @endphp
+
+                        <div class="mb-4">
+                            <p class="text-lg text-gray-600">Payment Status:
+                                <span class="font-semibold {{ $paymentStatusClass }}">
+                                    {{ $paymentStatus }}
+                                </span>
+                            </p>
+                        </div>
+
+
+                        <ul class="mb-4 text-lg">
                             @foreach ($order->menu_orders as $menu_order)
                                 <li class="flex justify-between py-2">
                                     <span>{{ $menu_order->menu->name }} <span>x
@@ -113,44 +136,73 @@
                             @endforeach
                         </ul>
 
-                        <div class="flex justify-between font-bold text-lg">
+                        <div class="flex justify-between font-bold text-3xl">
                             <span>Total</span>
                             <span>Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
                         </div>
 
+                        @if ($order->voucher)
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">Voucher Used: {{ $order->voucher->name }} -
+                                    {{ $order->voucher->discount }} % Discount</p>
+                            </div>
+                        @endif
+
                         <div class="mt-4 relative">
-                            <button
-                                id="dropdownButton"
-                                class="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">
+                            <button id="dropdownButton"
+                                class="w-full py-2 px-4 {{ $order->order_status == 'Pending' ? 'bg-red-500' : '' }}
+                                {{ $order->order_status == 'Preparing' ? 'bg-yellow-500' : '' }}
+                                {{ $order->order_status == 'Ready' ? 'bg-blue-500' : '' }}
+                                {{ $order->order_status == 'Completed' ? 'bg-green-500' : '' }}
+                                text-white rounded">
                                 Select Option
                             </button>
-                            <div
-                                id="dropdownMenu"
+                            <div id="dropdownMenu"
                                 class="hidden absolute w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2">
-                                <ul class="py-2">
-                                    <li>
-                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option A</button>
-                                    </li>
-                                    <li>
-                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option B</button>
-                                    </li>
-                                    <li>
-                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option C</button>
-                                    </li>
-                                    <li>
-                                        <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Option D</button>
-                                    </li>
-                                </ul>
+                                <form method="POST" action="{{ route('admin.orders.update', $order->id) }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <ul class="py-2">
+                                        <li>
+                                            <button type="submit" name="order_status" value="Pending"
+                                                class="w-full text-left px-4 py-2 hover:bg-gray-100">Order
+                                                Received</button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="order_status" value="Preparing"
+                                                class="w-full text-left px-4 py-2 hover:bg-gray-100">Preparing</button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="order_status" value="Ready"
+                                                class="w-full text-left px-4 py-2 hover:bg-gray-100">Ready to
+                                                Serve</button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="order_status" value="Completed"
+                                                class="w-full text-left px-4 py-2 hover:bg-gray-100">Completed</button>
+                                        </li>
+                                    </ul>
+                                </form>
                             </div>
                         </div>
+
                     </div>
                 @endforeach
+
                 <div class="mt-6">
                     {{ $orders->links() }}
                 </div>
             @endif
         </div>
     </div>
+    @if (session('success'))
+        <x-success-modal id="success-modal" title="Success" content="{{ session('success') }}" />
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                toggleModal('success-modal');
+            });
+        </script>
+    @endif
     <script>
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownMenu = document.getElementById('dropdownMenu');
