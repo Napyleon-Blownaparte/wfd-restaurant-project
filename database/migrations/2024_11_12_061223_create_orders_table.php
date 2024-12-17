@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Voucher::class, 'voucher_id')->nullable();
             $table->integer('sub_total_price');
             $table->integer('total_price');
+            $table->string('snap_token')->nullable();
             $table->dateTime('order_date_time');
             $table->dateTime('last_update_date_time')->nullable();
             $table->string('order_status');
