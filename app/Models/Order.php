@@ -23,6 +23,9 @@ class Order extends Model
         'table_number',
     ];
 
+    protected $guarded = [];
+
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

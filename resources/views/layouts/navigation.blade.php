@@ -1,23 +1,32 @@
+
 <nav x-data="{ open: false, scrolled: false }" x-on:scroll.window="scrolled = window.scrollY > 0"
     :class="scrolled ? 'bg-black bg-opacity-50 backdrop-blur-md border-b border-gray-700' : 'bg-transparent'"
     class="fixed top-0 left-0 w-full z-50 transition duration-300 ease-in-out">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <div class="flex items-center">
-                <a href="{{ route('dashboard') }}" class="flex items-center">
+                <a href="{{ '/home' }}" class="flex items-center">
                     <img src="{{ asset('path-to-your-logo.png') }}" alt="Logo" class="h-8 w-8 rounded-full">
                     <span class="ml-2 text-white font-bold text-lg">Sushi</span>
                 </a>
             </div>
 
             <!-- Navigation Links -->
+            @if(!Auth::check() || auth()->user()->is_admin == false)
             <div class="hidden md:flex space-x-8">
                 <a href="#home" class="text-white text-lg font-navbar hover:text-amber-500 transition">Home</a>
-                <a href="#menu" class="text-white text-lg font-navbar hover:text-amber-500 transition">Menu</a>
+                <a href="{{ route('user.menus.index') }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Menu</a>
                 <a href="#about" class="text-white text-lg font-navbar hover:text-amber-500 transition">About</a>
                 <a href="#contact" class="text-white text-lg font-navbar hover:text-amber-500 transition">Contact</a>
             </div>
+            @elseif(auth()->user()->is_admin == true)
+            <div class="hidden md:flex space-x-8">
+                <a href="{{ route('admin.menu-categories.menus.index', 1) }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Our Menu</a>
+                <a href="{{ route('admin.vouchers.index') }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Vouchers</a>
+                <a href="{{ route('admin.orders.index') }}" class="text-white text-lg font-navbar hover:text-amber-500 transition">Orders</a>
+            </div>
+            @endif
 
 
 

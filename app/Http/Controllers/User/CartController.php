@@ -49,7 +49,7 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->back();
+        return redirect()->route('user.menus.index');
     }
 
     /**
@@ -93,13 +93,19 @@ class CartController extends Controller
      */
     public function destroy($key)
     {
+        // Retrieve the cart from session
         $cart = session()->get('cart', []);
 
+        // Remove the item from the cart
         if (isset($cart[$key])) {
             unset($cart[$key]);
         }
 
+        // Update the session with the modified cart
         session()->put('cart', $cart);
-        return redirect()->back();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Item removed from cart.');
     }
+
 }

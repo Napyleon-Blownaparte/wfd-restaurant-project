@@ -20,7 +20,7 @@
                     <button
                         id="cart-button"
                         class="bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
-                        View Cart (0)
+                        View Cart ( {{ count((array) session('cart')) }} )
                     </button>
                 </div>
 
@@ -35,7 +35,7 @@
                             <a href="{{ route("user.menus.show", $menu->id) }}">
                                 <div class="flex items-start md:items-center justify-between">
                                     <div class="flex items-start md:items-center">
-                                        <img src={{asset('storage/' . $menu->image)}} alt={{$menu->name}} class="w-14 h-14 md:w-16 md:h-16 rounded-md">
+                                        <img src={{asset('storage/' . $menu->image_url)}} alt={{$menu->name}} class="w-14 h-14 md:w-16 md:h-16 rounded-md">
                                         <div class="ml-3 md:ml-4">
                                             <h4 class="font-title3 text-base md:text-lg font-bold">{{$menu->name}}</h4>
                                             <p class="font-title3 text-sm text-gray-300">{{$menu->description}}</p>
@@ -47,7 +47,7 @@
                                             Add to Cart
                                         </button>
                                     </div>
-                                                                                                 
+
                                 </div>
                                 </a>
                             @endforeach

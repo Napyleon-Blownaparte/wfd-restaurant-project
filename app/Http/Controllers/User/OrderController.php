@@ -66,9 +66,15 @@ class OrderController extends Controller
      */
     public function create()
     {
+        // Dapatkan voucher dengan start_date <= now() <= end_date
+        $vouchers = Voucher::where('start_date', '<=', now())
+                            ->where('end_date', '>=', now())
+                            ->get();
+
         $cart = session()->get('cart', []);
         return view('user-views.orders.create', [
             'cart' => $cart,
+            'vouchers' => $vouchers,
         ]);
     }
 
@@ -78,6 +84,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $cart = session()->get('cart');
+
 
         if (!isset($cart) || empty($cart)) {
             return redirect()->route('user.orders.create')->with('error', 'Your cart is empty.');
