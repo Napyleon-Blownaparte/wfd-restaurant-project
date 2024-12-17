@@ -62,12 +62,7 @@
                     <!-- Subtotal -->
                     <div class="mt-6">
                         <p class="text-lg font-semibold">
-<<<<<<< Updated upstream
-                            Subtotal: <span id="subtotal"
-                                class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
-=======
                             Subtotal: <span id="subtotal" class="text-amber-300">Rp {{ number_format(array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)), 0, ',', '.') }}</span>
->>>>>>> Stashed changes
                         </p>
                     </div>
 
@@ -78,18 +73,9 @@
                         <form action="{{ route('user.orders.store') }}" method="POST" id="checkoutForm">
                             @csrf
                             @foreach ($cart as $key => $item)
-<<<<<<< Updated upstream
-                                <input type="hidden" name="cart[{{ $key }}][key]"
-                                    value="{{ $key }}">
-                                <input type="hidden" name="cart[{{ $key }}][quantity]"
-                                    value="{{ $item['quantity'] }}">
-                                <input type="hidden" name="cart[{{ $key }}][price]"
-                                    value="{{ $item['price'] }}">
-=======
                                 <input type="hidden" name="cart[{{ $key }}][key]" value="{{ $key }}">
                                 <input type="hidden" name="cart[{{ $key }}][quantity]" value="{{ $item['quantity'] }}">
                                 <input type="hidden" name="cart[{{ $key }}][price]" value="{{ number_format($item['price'], 0, ',', '.') }}">
->>>>>>> Stashed changes
                             @endforeach
 
                             @if ($cart && $vouchers->isNotEmpty())
@@ -110,14 +96,8 @@
 
                             <div class="mt-4">
                                 <p class="text-lg font-semibold">
-<<<<<<< Updated upstream
-                                    Total after Discount:
-                                    <span id="total-after-discount"
-                                        class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
-=======
                                     Total after Discount: 
                                     <span id="total-after-discount" class="text-amber-300">Rp {{ number_format(array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)), 0, ',', '.') }}</span>
->>>>>>> Stashed changes
                                 </p>
                             </div>
 
