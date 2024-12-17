@@ -63,10 +63,11 @@
                     <!-- Subtotal -->
                     <div class="mt-6">
                         <p class="text-lg font-semibold">
-                            Subtotal: <span id="subtotal" class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
+                            Subtotal: <span id="subtotal"
+                                class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
                         </p>
                     </div>
-                    
+
 
                     <!-- Checkout Button -->
                     <div class="mt-8">
@@ -74,15 +75,20 @@
                         <form action="{{ route('user.orders.store') }}" method="POST" id="checkoutForm">
                             @csrf
                             @foreach ($cart as $key => $item)
-                                <input type="hidden" name="cart[{{ $key }}][key]" value="{{ $key }}">
-                                <input type="hidden" name="cart[{{ $key }}][quantity]" value="{{ $item['quantity'] }}">
-                                <input type="hidden" name="cart[{{ $key }}][price]" value="{{ $item['price'] }}">
+                                <input type="hidden" name="cart[{{ $key }}][key]"
+                                    value="{{ $key }}">
+                                <input type="hidden" name="cart[{{ $key }}][quantity]"
+                                    value="{{ $item['quantity'] }}">
+                                <input type="hidden" name="cart[{{ $key }}][price]"
+                                    value="{{ $item['price'] }}">
                             @endforeach
 
                             @if ($cart && $vouchers->isNotEmpty())
                                 <div class="mt-6">
-                                    <label for="voucher" class="block text-gray-300 font-semibold mb-2">Select Voucher</label>
-                                    <select name="voucher_id" id="voucher" class="border px-3 py-2 rounded-md text-black w-full">
+                                    <label for="voucher" class="block text-gray-300 font-semibold mb-2">Select
+                                        Voucher</label>
+                                    <select name="voucher_id" id="voucher"
+                                        class="border px-3 py-2 rounded-md text-black w-full">
                                         <option value="">-- Choose a Voucher --</option>
                                         @foreach ($vouchers as $voucher)
                                             <option value="{{ $voucher->id }}">
@@ -95,12 +101,13 @@
 
                             <div class="mt-4">
                                 <p class="text-lg font-semibold">
-                                    Total after Discount: 
-                                    <span id="total-after-discount" class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
+                                    Total after Discount:
+                                    <span id="total-after-discount"
+                                        class="text-amber-300">${{ array_sum(array_map(fn($item) => $item['quantity'] * $item['price'], $cart)) }}</span>
                                 </p>
                             </div>
-                            
-                            
+
+
 
                             <button type="submit"
                                 class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition mt-4">
@@ -123,27 +130,28 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-        const subtotalElement = document.getElementById('subtotal');
-        const totalAfterDiscountElement = document.getElementById('total-after-discount');
-        const voucherDropdown = document.getElementById('voucher');
+        document.addEventListener('DOMContentLoaded', function() {
+            const subtotalElement = document.getElementById('subtotal');
+            const totalAfterDiscountElement = document.getElementById('total-after-discount');
+            const voucherDropdown = document.getElementById('voucher');
 
-        // Ambil nilai subtotal dari elemen
-        const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
+            // Ambil nilai subtotal dari elemen
+            const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
 
-        // Event listener untuk mengubah total setelah diskon
-        voucherDropdown.addEventListener('change', function () {
-            const selectedOption = voucherDropdown.options[voucherDropdown.selectedIndex];
-            const discountMatch = selectedOption.text.match(/(\d+)%/); // Ambil angka dari diskon (e.g. 20%)
-            const discountPercentage = discountMatch ? parseFloat(discountMatch[1]) : 0;
+            // Event listener untuk mengubah total setelah diskon
+            voucherDropdown.addEventListener('change', function() {
+                const selectedOption = voucherDropdown.options[voucherDropdown.selectedIndex];
+                const discountMatch = selectedOption.text.match(
+                /(\d+)%/); // Ambil angka dari diskon (e.g. 20%)
+                const discountPercentage = discountMatch ? parseFloat(discountMatch[1]) : 0;
 
-            // Hitung total setelah diskon
-            const discountAmount = subtotal * (discountPercentage / 100);
-            const totalAfterDiscount = subtotal - discountAmount;
+                // Hitung total setelah diskon
+                const discountAmount = subtotal * (discountPercentage / 100);
+                const totalAfterDiscount = subtotal - discountAmount;
 
-            // Tampilkan hasil
-            totalAfterDiscountElement.textContent = `$${totalAfterDiscount.toFixed(2)}`;
+                // Tampilkan hasil
+                totalAfterDiscountElement.textContent = `$${totalAfterDiscount.toFixed(2)}`;
+            });
         });
-    });
     </script>
 </x-app-layout>

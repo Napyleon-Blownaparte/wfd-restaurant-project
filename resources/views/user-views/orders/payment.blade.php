@@ -92,6 +92,10 @@
                                 Checkout
                             </button>
                             <input type="hidden" id="snap-token" value="{{ $orders->snap_token }}">
+                            <form id="form_submit" action="" method="POST">
+                                @csrf
+                                <input id="json_callback" name="json" type="hidden">
+                            </form>
                         </div>
 
                         <!-- Right Section -->
@@ -112,7 +116,28 @@
         window.snap.embed(snapToken, {
             embedId: 'snap-container'
         });
+
+        onSuccess: function(result) {
+                alert("payment success!");
+                console.log(result);
+            },
+            onPending: function(result) {
+                alert("wating your payment!");
+                console.log(result);
+            },
+            onError: function(result) {
+                alert("payment failed!");
+                console.log(result);
+            },
+            onClose: function() {
+                alert('you closed the popup without finishing the payment');
+            }
     });
+
+    function send_response_to_form(result) {
+        document.getElementById('json_callback').value = JSON.stringify(result);
+        alert(document.getElementById('json_callback ').value)
+    }
 </script>
 
 </html>

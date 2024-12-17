@@ -95,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         // ORDER ROUTES
         Route::get('/orders/payment/{order}', [App\Http\Controllers\User\OrderController::class, 'payment'])->name('orders.payment');
-        Route::get('/orders/pay/{id}', [App\Http\Controllers\User\OrderController::class, 'pay'])->name('orders.pay');
+        Route::post('/orders/status/{order}', [App\Http\Controllers\User\OrderController::class, 'status_update'])->name('orders.status');
 
         Route::resource('orders', App\Http\Controllers\User\OrderController::class)->shallow()->only(['index', 'create', 'store', 'show']);
         Route::resource('menus', App\Http\Controllers\User\MenuController::class)->shallow()->only(['index', 'show']);
