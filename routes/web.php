@@ -24,17 +24,10 @@ Route::get('/home', function () {
     return view('landing-page');
 });
 
-Route::get('/payment', function () {
-    return view('payment');
-});
-
-Route::get('/list-order', function () {
-    return view('user-views.orders.list-order');
-});
-
 Route::get('/add-new-menu', function () {
     return view('admin-views.menus.index');
 });
+
 
 // Route::get('/add-new-voucher', function () {
 //     return view('admin/add-voucher');
@@ -93,9 +86,12 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::post('/update--voucher-cart', [App\Http\Controllers\User\CartController::class, 'update'])->name('cart.update');
         // Route::get('/destroy-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
 
+        // VOUCHER ROUTES
+        Route::post('/vouchers/pay/{id}', [App\Http\Controllers\User\VoucherController::class, 'payment'])->name('vouchers.payment');
+
         // ORDER ROUTES
         Route::get('/orders/payment/{order}', [App\Http\Controllers\User\OrderController::class, 'payment'])->name('orders.payment');
-        Route::get('/orders/pay/{id}', [App\Http\Controllers\User\OrderController::class, 'pay'])->name('orders.pay');
+        Route::post('/orders/status/{id}', [App\Http\Controllers\User\OrderController::class, 'status_update'])->name('orders.status');
 
         Route::resource('orders', App\Http\Controllers\User\OrderController::class)->shallow()->only(['index', 'create', 'store', 'show']);
         Route::resource('menus', App\Http\Controllers\User\MenuController::class)->shallow()->only(['index', 'show']);

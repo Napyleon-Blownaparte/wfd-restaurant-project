@@ -76,6 +76,7 @@
                                                 {{ number_format($order->total_price, 0, ',', '.') }}</p>
                                         </div>
                                     </div>
+
                                 </div>
                             </a>
                         @endforeach

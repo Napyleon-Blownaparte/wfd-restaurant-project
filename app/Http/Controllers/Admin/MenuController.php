@@ -43,6 +43,7 @@ class MenuController extends Controller
             'image_url' => 'required|image|mimes:jpg,jpeg,png|max:204800',
         ]);
 
+
         $image_url = $request->file('image_url')->store('menus_images', 'public');
 
         $menuCategory->menus()->create([
@@ -91,7 +92,10 @@ class MenuController extends Controller
 
         $menu->update($validated);
 
-        $menu->image_url = $request->file('image_url')->store('menus_images', 'public');
+        if ($request->hasFile('image_url')) {
+            $menu->image_url = $request->file('image_url')->store('menus_images', 'public');
+
+        }
 
         $menu->save();
 
