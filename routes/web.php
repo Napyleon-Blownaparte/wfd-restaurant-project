@@ -36,6 +36,11 @@ Route::get('/add-new-menu', function () {
     return view('admin-views.menus.index');
 });
 
+
+Route::get('/buy-voucher', function () {
+    return view('vouchers.buy-voucher');
+});
+
 // Route::get('/add-new-voucher', function () {
 //     return view('admin/add-voucher');
 // });
