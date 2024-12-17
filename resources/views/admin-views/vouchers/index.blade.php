@@ -166,6 +166,14 @@
 
     {{-- </div>
     </div> --}}
+    @if (session('success'))
+    <x-success-modal id="success-modal" title="Success" content="{{ session('success') }}" />
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            toggleModal('success-modal');
+        });
+    </script>
+@endif
 
 </x-app-layout>
 
