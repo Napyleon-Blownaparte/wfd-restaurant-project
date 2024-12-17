@@ -78,7 +78,6 @@
                                 <input type="hidden" name="cart[{{ $key }}][price]" value="{{ number_format($item['price'], 0, ',', '.') }}">
                             @endforeach
 
-                            @if ($cart && $vouchers->isNotEmpty())
 
 
                             <div class="mt-6">
@@ -93,7 +92,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                        @endif
 
                             <div class="mt-4">
                                 <p class="text-lg font-semibold">
