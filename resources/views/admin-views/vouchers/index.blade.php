@@ -1,24 +1,17 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.tailwindcss.com"></script>
 <x-app-layout>
-    <div class="mt-16">
+    <div>
         <!-- Sidebar -->
-        <div class="sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 text-white sm:w-full sm:mt-4 p-6 border-b border-gray-700 flex justify-between">
+        <div class="sm:flex sm:flex-row bg-gradient-to-b from-black to-gray-800 text-white sm:w-full pt-16 pb-6 px-6 border-b border-gray-700 flex justify-between items-center">
             <h2 class="text-xl font-bold">Vouchers</h2>
+            <a href="{{ route('admin.vouchers.create') }}">
+                <button id="add-voucher-btn" class="px-4 py-2 bg-amber-400 text-black hover:bg-amber-500 rounded">Add Voucher</button>
+            </a>
         </div>
-
-        <!-- Main Content -->
-        <div class="flex-1 p-8 bg-gray-100">
-            <div class="flex sm:justify-end justify-center mb-6">
-                <a href="{{ route('admin.vouchers.create') }}">
-                    <button id="add-voucher-btn" class="px-4 py-2 bg-amber-400 text-black hover:bg-amber-500 rounded">Add Voucher</button>
-                </a>
-            </div>
+        
 
             <!-- Card 1 -->
             @foreach ($vouchers as $voucher)
-                <div class="bg-white shadow rounded-lg overflow-hidden relative mb-4">
+                <div class="bg-white shadow rounded-lg overflow-hidden relative mb-4 mt-4 mx-4">
                     <div class="absolute top-2 right-2 flex gap-2">
                         <!-- Edit Button -->
                         <a href="{{ route('admin.vouchers.edit', $voucher->id) }}">
@@ -42,30 +35,27 @@
                                 Delete
                             </button>
                         </form>
-
-
                     </div>
-
-                    <img src="https://via.placeholder.com/300x200" alt="voucher Image" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg">{{ $voucher->name }}</h3>
-                        <div class="flex space-x-1">
-                            <p>Description:</p>
-                            <p class="text-gray-600">{{ $voucher->description }}</p>
+                    <div class="p-4 bg-white rounded shadow-md">
+                        <h3 class="font-bold text-lg mb-2">{{ $voucher->name }}</h3>
+                        <div class="text-red-500 font-extrabold text-2xl">
+                            Discount: {{ $voucher->discount }}%
                         </div>
-                        <div class="flex space-x-1">
-                            <p>Eligible Date:</p>
-                            <p class="text-gray-600">{{ $voucher->start_date }} - {{ $voucher->end_date }}</p>
-                        </div>
-                        <div class="flex space-x-1">
-                            <p>Discount (%):</p>
-                            <p class="text-gray-600">{{ $voucher->discount }}</p>
-                        </div>
-                        <div class="flex space-x-1">
-                            <p>Price:</p>
-                            <p class="text-gray-600">Rp {{ $voucher->price }}</p>
+                        <div class="flex flex-col space-y-1 mt-2">
+                            <div class="text-sm text-gray-700">
+                                <p class="italic">{{ $voucher->description }}</p>
+                            </div>
+                            <div class="text-sm text-gray-700">
+                                <p class="font-semibold">Eligible Date:</p>
+                                <p>{{ $voucher->start_date }} until {{ $voucher->end_date }}</p>
+                            </div>
+                            <div class="text-sm text-gray-700">
+                                <p class="text-green-500 font-semibold">Price:</p>
+                                <p class="text-green-500">Rp {{ number_format($voucher->price, 0, ',', '.') }}</p> 
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
             @endforeach
             <!-- Pagination -->
