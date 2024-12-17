@@ -4,6 +4,7 @@ namespace Database\Seeders;
 use App\Models\Order;
 use App\Models\Menu;
 use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Database\Seeder;
 
 class OrderSeeder extends Seeder
@@ -19,12 +20,14 @@ class OrderSeeder extends Seeder
         foreach ($orders as $order) {
             $order->user_id = $users->random()->id;
             $menus = Menu::inRandomOrder()->take(3)->get();
+            $voucher = Voucher::inRandomOrder()->first();
 
             $subTotal = 0;
             foreach ($menus as $menu) {
                 $quantity = rand(1, 5);
                 $subTotal += $menu->price * $quantity;
             }
+            $order->voucher_id = $voucher->id;
 
             $totalPrice = $subTotal;
 
