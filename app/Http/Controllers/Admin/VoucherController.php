@@ -13,8 +13,12 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        return view('admin-views.vouchers.index');
+        $vouchers = Voucher::paginate(5); // 10 items per halaman
+        return view('admin-views.vouchers.index', [
+            'vouchers' => $vouchers,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -56,7 +60,9 @@ class VoucherController extends Controller
      */
     public function edit(Voucher $voucher)
     {
-        return view('admin-views.vouchers.edit');
+        return view('admin-views.vouchers.edit', [
+            'voucher' => $voucher,
+        ]);
     }
 
     /**
@@ -65,12 +71,12 @@ class VoucherController extends Controller
     public function update(Request $request, Voucher $voucher)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'discount' => 'required|integer|min:1|max:100',
-            'price' => 'required|integer|min:1',
+            'name' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string|max:255',
+            'start_date' => 'sometimes|date',
+            'end_date' => 'sometimes|date|after_or_equal:start_date',
+            'discount' => 'sometimes|integer|min:1|max:100',
+            'price' => 'sometimes|integer|min:1',
         ]);
 
         $voucher->update($validated);
