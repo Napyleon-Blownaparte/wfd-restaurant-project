@@ -112,7 +112,7 @@
         </div>
 
         <!-- Contact Section -->
-        <div class="relative mt-20 bg-cover bg-center h-screen" style="background-image: url('images/contact.jpg');">
+        <div class="relative mt-20 bg-cover h-full bg-center h-screen" style="background-image: url('images/contact.jpg');">
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>
             <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
                 <h1 class="font-title2 text-3xl md:text-5xl font-bold text-amber-300 mb-6">
@@ -132,9 +132,6 @@
                         (+62) 123-456-789
                     </div>
                 </div>
-                <a href="#" class="bg-amber-400 text-black py-3 px-8 rounded-3xl font-title3 text-sm md:text-base hover:bg-amber-500">
-                    Contact Us
-                </a>
             </div>
         </div>
     </div>
