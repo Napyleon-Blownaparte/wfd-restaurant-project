@@ -5,8 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Voucher;
+use App\Models\VoucherPurchase;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -76,10 +78,8 @@ class OrderController extends Controller
     public function create()
     {
         // Dapatkan voucher dengan start_date <= now() <= end_date
-        $vouchers = Voucher::where('start_date', '<=', now())
-            ->where('end_date', '>=', now())
-            ->get();
-
+        $orders = Order::get()->where('user_id', Auth::user()->id);
+        $vouchers = VoucherPurchase::get()->whereNotIn('voucher_id', $orders->pluck('voucher_id'));
         $cart = session()->get('cart', []);
         return view('user-views.orders.create', [
             'cart' => $cart,

@@ -15,15 +15,11 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $vouchers = Voucher::all();
+        $voucher_purchases = VoucherPurchase::where('user_id', Auth::user()->id)->get();
+        $vouchers = Voucher::get()->whereNotIn('id', $voucher_purchases->pluck('voucher_id'));
         return view('user-views.vouchers.index', [
             'vouchers' => $vouchers,
         ]);
-    }
-
-    public function payment_index()
-    {
-        return view('user-views.vouchers.payment_index');
     }
 
     public function payment($id)
@@ -69,7 +65,31 @@ class VoucherController extends Controller
             'payment_status' => 'Unpaid',
         ]);
 
-        return view(route('user.vouchers.payment_index'), $voucher_purchases);
+        return view('user-views.vouchers.payment-voucher', ['voucher_purchase' => $voucher_purchases]);
+    }
+
+    public function status_update(Request $request, $id)
+    {
+        $voucher = VoucherPurchase::find($id);
+        $json = json_decode($request->get('json'));
+
+        if ($json->transaction_status == 'settlement' || $json->transaction_status == 'capture') {
+            // dd($json);
+            $voucher->payment_status = 'Paid';
+            $voucher->payment_date_time = now();
+        } else if ($json->transaction_status == 'pending') {
+            $voucher->payment_status = 'Pending';
+        } else if ($json->transaction_status == 'deny') {
+            $voucher->payment_status = 'Denied';
+        } else if ($json->transaction_status == 'expire') {
+            $voucher->payment_status = 'Expired';
+        } else if ($json->transaction_status == 'cancel') {
+            $voucher->payment_status = 'Canceled';
+        }
+
+        $voucher->save();
+
+        return redirect()->route('user.vouchers.index')->with('success', 'Order status updated successfully!');
     }
 
     /**
