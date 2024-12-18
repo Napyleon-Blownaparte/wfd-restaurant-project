@@ -19,6 +19,7 @@
             <div>
                 <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <h1 class="text-center text-3xl font-bold">Sushimi</h1>
                 </a>
             </div>
 

@@ -36,31 +36,41 @@
                             <div class="flex items-center gap-4 mb-4">
                                 <h2 class="text-2xl sm:text-3xl font-semibold text-white">Voucher</h2>
                             </div>
+                            @php
+                                // dd($voucher_purchase->vouchers);
+                            @endphp
                             <!-- Voucher -->
-                                <div class="flex justify-between items-center border-b py-4">
-                                    <!-- Bagian Kiri: Gambar dan Deskripsi -->
-                                    <div class="flex items-center gap-6 w-2/3">
-                                        <h1 class="text-xl sm:text-2xl font-medium text-white">
-                                            quibusdam   </h1>
-                                    </div>
-
-                                    <!-- Harga di Sebelah Kanan -->
-                                    <p class="text-md md:text-xl font-semibold">IDR 34234
-                                        </p>
+                            <div class="flex justify-between items-center border-b py-4">
+                                <!-- Bagian Kiri: Gambar dan Deskripsi -->
+                                <div class="flex items-center gap-6 w-2/3">
+                                    <h1 class="text-xl sm:text-2xl font-medium text-white">
+                                        {{ $voucher_purchase->vouchers->name }}</h1>
                                 </div>
+
+                                <!-- Harga di Sebelah Kanan -->
+                                <p class="text-md md:text-xl font-semibold">IDR
+                                    {{ number_format($voucher_purchase->vouchers->price, 0, ',', '.') }}
+                                </p>
+                            </div>
 
                             <div class="flex justify-between items-center mt-8">
                                 <p class="text-xl sm:text-3xl font-black">TOTAL</p>
-                                <p class="text-xl sm:text-3xl font-black">IDR 34234
-                                    </p>
+                                <p class="text-xl sm:text-3xl font-black">IDR
+                                    {{ number_format($voucher_purchase->vouchers->price, 0, ',', '.') }}
+                                </p>
                             </div>
 
-                            <a href=""><button id="cart-button"
-                                    class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
-                                    Pay
-                                </button>
-                            </a>
+                            <button id="cart-button"
+                                class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
+                                Pay
+                            </button>
 
+                            <input type="hidden" id="snap-token" value="{{ $voucher_purchase->snap_token }}">
+                            <form id="form_submit" action="{{ route('user.vouchers.status', $voucher_purchase->id) }}"
+                                method="POST">
+                                @csrf
+                                <input id="json_callback" name="json" type="hidden">
+                            </form>
                         </div>
 
                         <!-- Right Section -->
@@ -77,12 +87,32 @@
 <script type="text/javascript">
     var payButton = document.getElementById('cart-button');
     payButton.addEventListener('click', function() {
-        var snapToken = button.getAttribute('data-snap-token');
+        var snapToken = document.getElementById('snap-token').value;
         window.snap.embed(snapToken, {
-            embedId: 'snap-container'
+            embedId: 'snap-container',
+            onSuccess: function(result) {
+                console.log(result);
+                send_response_to_form(result);
+            },
+            onPending: function(result) {
+                console.log(result);
+                send_response_to_form(result);
+            },
+            onError: function(result) {
+                console.log(result);
+                send_response_to_form(result);
+            },
+            onClose: function() {
+                alert('you closed the popup without finishing the payment');
+                send_response_to_form(result);
+            }
         });
-
     });
+
+    function send_response_to_form(result) {
+        document.getElementById('json_callback').value = JSON.stringify(result);
+        document.getElementById('form_submit').submit();
+    }
 </script>
 
 </html>

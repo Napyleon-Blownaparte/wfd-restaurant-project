@@ -87,8 +87,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::get('/destroy-voucher-cart/{menu}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('cart.destroy');
 
         // VOUCHER ROUTES
-        Route::post('/vouchers/pay/{id}', [App\Http\Controllers\User\VoucherController::class, 'payment'])->name('vouchers.payment');
-        Route::get('/voucher/payment', [App\Http\Controllers\User\VoucherController::class, 'payment_index'])->name('vouchers.payment_index');
+        Route::get('/vouchers/pay/{id}', [App\Http\Controllers\User\VoucherController::class, 'payment'])->name('vouchers.payment');
+        Route::get('/vouchers/payment', [App\Http\Controllers\User\VoucherController::class, 'payment_index'])->name('vouchers.pay');
+        Route::post('/vouchers/status/{id}', [App\Http\Controllers\User\VoucherController::class, 'status_update'])->name('vouchers.status');
 
         // ORDER ROUTES
         Route::get('/orders/payment/{order}', [App\Http\Controllers\User\OrderController::class, 'payment'])->name('orders.payment');
