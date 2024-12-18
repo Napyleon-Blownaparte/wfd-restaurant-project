@@ -133,32 +133,34 @@
             const voucherDropdown = document.getElementById('voucher');
 
             // Ambil nilai subtotal dari elemen
-            const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
+            let subtotal = parseFloat(subtotalElement.textContent.replace('Rp', '').replace('.', '').trim());
+
+            // Update total after discount jika voucher dipilih
+            function updateTotalAfterDiscount(discountPercentage = 0) {
+                const discountAmount = subtotal * (discountPercentage / 100);
+                const totalAfterDiscount = subtotal - discountAmount;
+
+                // Menampilkan total setelah diskon
+                totalAfterDiscountElement.textContent = 'Rp ' + totalAfterDiscount.toLocaleString();
+            }
 
             // Event listener untuk mengubah total setelah diskon
             voucherDropdown.addEventListener('change', function() {
                 const selectedOption = voucherDropdown.options[voucherDropdown.selectedIndex];
-                const discountMatch = selectedOption.text.match(
-                    /(\d+)%/); // Ambil angka dari diskon (e.g. 20%)
+                const discountMatch = selectedOption.text.match(/(\d+)%/); // Ambil angka dari diskon (e.g. 20%)
 
                 let discountPercentage = 0;
                 if (selectedOption.value !== "0" && discountMatch) {
                     discountPercentage = parseFloat(discountMatch[1]);
                 }
 
-                // Hitung total setelah diskon
-                const discountAmount = subtotal * (discountPercentage / 100);
-                const totalAfterDiscount = subtotal - discountAmount;
-
-                // Tampilkan hasil
-                totalAfterDiscountElement.textContent = `$${totalAfterDiscount.toFixed(2)}`;
+                // Update total setelah diskon
+                updateTotalAfterDiscount(discountPercentage);
             });
 
-
             // Simulasikan perubahan awal jika voucher tidak dipilih
-            if (!voucherDropdown.value) {
-                totalAfterDiscountElement.textContent = `$${subtotal.toFixed(2)}`;
-            }
+            updateTotalAfterDiscount(); // Menampilkan total awal tanpa diskon
         });
     </script>
+
 </x-app-layout>

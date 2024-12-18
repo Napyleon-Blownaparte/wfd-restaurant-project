@@ -33,10 +33,11 @@
                                 <div class="text-right">
                                     <p class="text-lg font-semibold text-yellow-400">Rp
                                         {{ number_format($voucher->price, 0, ',', '.') }}</p>
-                                    <button
-                                        class="bg-yellow-400 text-black px-4 py-2 rounded-full mt-2 hover:bg-yellow-500 w-28">
-                                        Buy Now
-                                    </button>
+                                    <a href="{{ route('user.vouchers.payment', $voucher->id) }}"><button
+                                            class="bg-yellow-400 text-black px-4 py-2 rounded-full mt-2 hover:bg-yellow-500 w-28">
+                                            Buy Now
+                                        </button></a>
+                                    <input type="hidden" id="data" value="{{ $voucher }}">
                                 </div>
                             </div>
                         @endforeach
