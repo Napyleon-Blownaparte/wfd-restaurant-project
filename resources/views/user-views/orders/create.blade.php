@@ -150,15 +150,10 @@
                 const discountAmount = subtotal * (discountPercentage / 100);
                 const totalAfterDiscount = subtotal - discountAmount;
 
-                // Tampilkan hasil
-                totalAfterDiscountElement.textContent = `$${totalAfterDiscount.toFixed(2)}`;
             });
 
 
             // Simulasikan perubahan awal jika voucher tidak dipilih
-            if (!voucherDropdown.value) {
-                totalAfterDiscountElement.textContent = `$${subtotal.toFixed(2)}`;
-            }
         });
     </script>
 </x-app-layout>
