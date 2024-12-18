@@ -119,10 +119,12 @@
                                 </div>
                             </div>
 
+                            @if($orders->payment_status !== 'Paid')
                             <button id="cart-button"
                                 class="mt-8 w-full bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
                                 Checkout
                             </button>
+                            @endif
 
                             <input type="hidden" id="snap-token" value="{{ $orders->snap_token }}">
                             <form id="form_submit" action="{{ route('user.orders.status', $orders->id) }}"
