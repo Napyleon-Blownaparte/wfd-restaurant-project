@@ -18,24 +18,23 @@
                 <div class="mb-10">
                     <h3 class="text-yellow-400 text-3xl font-bold mb-5">Available Coupons</h3>
                     <div class="space-y-6">
-
                         @foreach ($vouchers as $voucher)
                             <div class="flex items-center justify-between border-b border-gray-700 pb-4">
                                 <div class="flex items-center">
                                     <div class="ml-4">
                                         <h4 class="text-lg font-bold">{{ $voucher->name }}</h4>
-                                        <p class="text-sm text-gray-300">{{ $voucher->description }} Discount:
-                                            {{ $voucher->discount }}</p>
+                                        <p class="text-sm text-gray-300 w-18">{{ $voucher->description }} </p>
+                                        <p class="text-sm text-gray-300 w-18">Discount: <span
+                                                class="text-red-400">{{ $voucher->discount }}%</span></p>
                                         <p class="text-sm text-gray-400">Valid until:
                                             {{ \Carbon\Carbon::parse($voucher->end_date)->format('M d, Y') }}</p>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-lg font-semibold text-yellow-400">RP
+                                    <p class="text-lg font-semibold text-yellow-400">Rp
                                         {{ number_format($voucher->price, 0, ',', '.') }}</p>
                                     <a href="{{ route('user.vouchers.payment', $voucher->id) }}"><button
-                                            class="bg-yellow-400 text-black px-4 py-2 rounded-full mt-2 hover:bg-yellow-500"
-                                            id="pay-button">
+                                            class="bg-yellow-400 text-black px-4 py-2 rounded-full mt-2 hover:bg-yellow-500 w-28">
                                             Buy Now
                                         </button></a>
                                     <input type="hidden" id="data" value="{{ $voucher }}">

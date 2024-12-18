@@ -63,7 +63,7 @@
                                     <div
                                         class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-neutral-700 p-4 rounded-lg">
                                         <div class="flex items-center gap-4">
-                                            <img src="images/tuna.jpg" alt="Item Image"
+                                            <img src="{{ asset('storage/' . $order->image_url) }}" alt="Item Image"
                                                 class="h-16 w-16 object-cover rounded-lg">
                                             <div>
                                                 <h3 class="text-base sm:text-lg font-medium text-white">
