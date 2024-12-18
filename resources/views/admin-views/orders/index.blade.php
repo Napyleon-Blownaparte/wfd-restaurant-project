@@ -64,16 +64,6 @@
                             This Week
                         </button>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                        <input type="date" name="start_date" value="{{ request('start_date') }}"
-                            class="py-2 px-4 border rounded w-full sm:w-auto">
-                        <input type="date" name="end_date" value="{{ request('end_date') }}"
-                            class="py-2 px-4 border rounded w-full sm:w-auto">
-                        <button type="submit" name="period" value="custom"
-                            class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full sm:w-auto">
-                            Filter
-                        </button>
-                    </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
                     <input type="date" name="start_date" value="{{ request('start_date') }}"
