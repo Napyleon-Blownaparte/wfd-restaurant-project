@@ -103,7 +103,19 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        // Validasi input status yang dikirimkan
+        $request->validate([
+            'order_status' => 'required|in:Pending,Preparing,Ready,Completed',
+        ]);
+
+        // Mengubah status pesanan
+        $order->order_status = $request->input('order_status');
+
+        // Menyimpan perubahan status
+        $order->save();
+
+        // Kembali ke halaman sebelumnya dengan pesan sukses
+        return redirect()->route('admin.orders.index')->with('success', 'Order berhasil diupdate.');
     }
 
     /**

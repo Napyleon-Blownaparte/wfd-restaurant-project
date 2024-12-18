@@ -5,8 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Voucher;
+use App\Models\VoucherPurchase;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -21,7 +23,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders->where('order_status', 'Pending');
+        $orders = auth()->user()->orders;
 
         return view('user-views.orders.list-order', [
             'orders' => $orders,
@@ -30,15 +32,6 @@ class OrderController extends Controller
 
     public function payment($id)
     {
-        $orders = Order::find($id);
-        return view('user-views.orders.payment', [
-            'orders' => $orders,
-        ]);
-    }
-
-    public function pay($id)
-    {
-
         $orders = Order::find($id);
 
         // Set your Merchant Server Key
@@ -52,7 +45,7 @@ class OrderController extends Controller
 
         $params = [
             'transaction_details' => [
-                'order_id' => $orders->id,
+                'order_id' => rand(),
                 'gross_amount' => $orders->total_price,
             ],
             'customer_details' => [
@@ -61,7 +54,22 @@ class OrderController extends Controller
             ],
         ];
 
+        // foreach ($orders->menus as $menu) {
+        //     $params['item_details'][] = [
+        //         'id' => $menu->id,
+        //         'price' => $menu->price,
+        //         'quantity' => $menu->menu_orders->first()->quantity,
+        //         'name' => $menu->name,
+        //     ];
+        // }
+
         $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $orders->snap_token = $snapToken;
+        $orders->save();
+
+        return view('user-views.orders.payment', [
+            'orders' => $orders,
+        ]);
     }
 
     /**
@@ -70,15 +78,37 @@ class OrderController extends Controller
     public function create()
     {
         // Dapatkan voucher dengan start_date <= now() <= end_date
-        $vouchers = Voucher::where('start_date', '<=', now())
-                            ->where('end_date', '>=', now())
-                            ->get();
-
+        $orders = Order::get()->where('user_id', Auth::user()->id);
+        $vouchers = VoucherPurchase::get()->whereNotIn('voucher_id', $orders->pluck('voucher_id'));
         $cart = session()->get('cart', []);
         return view('user-views.orders.create', [
             'cart' => $cart,
             'vouchers' => $vouchers,
         ]);
+    }
+
+    public function status_update(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $json = json_decode($request->get('json'));
+        
+        if ($json->transaction_status == 'settlement' || $json->transaction_status == 'capture') {
+            // dd($json);
+            $order->payment_status = 'Paid';
+            $order->payment_date_time = now();
+        } else if ($json->transaction_status == 'pending') {
+            $order->payment_status = 'Pending';
+        } else if ($json->transaction_status == 'deny') {
+            $order->payment_status = 'Denied';
+        } else if ($json->transaction_status == 'expire') {
+            $order->payment_status = 'Expired';
+        } else if ($json->transaction_status == 'cancel') {
+            $order->payment_status = 'Canceled';
+        }
+
+        $order->save();
+
+        return redirect()->route('user.orders.index')->with('success', 'Order status updated successfully!');
     }
 
     /**
@@ -117,7 +147,6 @@ class OrderController extends Controller
         $order->order_date_time = now();
         $order->last_update_date_time = now();
         $order->order_status = 'Pending';
-        $order->payment_method = 'Credit Card';
         $order->payment_status = 'Unpaid';
         $order->table_number = 10;
         $order->save();

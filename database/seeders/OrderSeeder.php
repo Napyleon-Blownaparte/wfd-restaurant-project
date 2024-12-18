@@ -36,7 +36,6 @@ class OrderSeeder extends Seeder
             $order->order_date_time = now();
             $order->last_update_date_time = now();
             $order->order_status = 'Pending';
-            $order->payment_method = 'Credit Card';
             $order->payment_status = 'Unpaid';
             $order->payment_date_time = null;
             $order->table_number = rand(1, 10);
