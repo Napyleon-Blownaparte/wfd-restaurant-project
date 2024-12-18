@@ -15,15 +15,6 @@
             <!-- Right Section -->
             <div class="md:w-1/2 w-full p-5 md:p-8 mt-5 md:mt-10 overflow-y-auto min-h-screen">
 
-                <!-- Cart Button -->
-                <div class="mb-8">
-                    <button
-                        id="cart-button"
-                        class="bg-amber-300 text-black px-4 py-2 text-sm font-bold rounded hover:bg-amber-400 transition">
-                        View Cart ( {{ count((array) session('cart')) }} )
-                    </button>
-                </div>
-
                 <!-- Category -->
                 @foreach($categories as $category)
                     <div class="mb-8 md:mb-10">
