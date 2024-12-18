@@ -19,6 +19,6 @@ class VoucherPurchase extends Model
 
     public function vouchers()
     {
-        return $this->belongsToMany(Voucher::class, 'voucher_details', 'voucher_purchase_id', 'voucher_id');
+        return $this->belongsTo(Voucher::class, 'voucher_id', 'id');
     }
 }
