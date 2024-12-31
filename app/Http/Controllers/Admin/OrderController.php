@@ -23,14 +23,14 @@ class OrderController extends Controller
         // Mulai query untuk mengambil data order
         $query = Order::query();
 
-        // Filter berdasarkan status pesanan
-        if ($order_status) {
+        // Jika status "Point of Sales", abaikan filter status
+        if ($order_status && $order_status !== 'table') {
             $query->where('order_status', $order_status);
         }
 
         // Filter berdasarkan periode
         if ($period) {
-            $today = now()->startOfDay()->addDay(1);
+            $today = now()->startOfDay();
             $thisWeekStart = now()->startOfWeek();
             $thisWeekEnd = now()->endOfWeek();
 
@@ -56,13 +56,15 @@ class OrderController extends Controller
         }
 
         // Ambil data order setelah filter diterapkan dengan pagination
-        $orders = $query->paginate(5); // Ambil 10 data per halaman
+        $orders = $query->paginate(10); // Ambil 10 data per halaman
 
         // Kirim hasil ke view
         return view('admin-views.orders.index', [
-            'orders' => $orders
+            'orders' => $orders,
+            'order_status' => $order_status,
         ]);
     }
+
 
 
 
