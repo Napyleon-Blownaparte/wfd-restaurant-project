@@ -1,17 +1,21 @@
 <x-app-layout>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <div>
         <!-- Sidebar -->
-        <div class="sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 text-white sm:w-full">
-            <div class="pt-16 pb-6 px-6 border-b border-gray-700 flex items-center justify-between">
+        <div class="text-white sm:flex sm:flex-col bg-gradient-to-b from-black to-gray-800 sm:w-full">
+            <div class="flex items-center justify-between px-6 pt-16 pb-6 border-b border-gray-700">
                 <h2 class="text-xl font-bold">Order Status</h2>
             </div>
-            <nav class="flex p-4 overflow-x-auto scrollbar-hide relative">
-                <ul class="flex sm:flex-row sm:space-x-4 sm:overflow-x-auto overflow-x-scroll pl-4 pr-4">
+            <nav class="relative flex p-4 overflow-x-auto scrollbar-hide">
+                <ul class="flex pl-4 pr-4 overflow-x-scroll sm:flex-row sm:space-x-4 sm:overflow-x-auto">
                     <li>
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="pending">
                             <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                                class="block w-full px-4 py-2 text-left rounded hover:bg-gray-700 whitespace-nowrap">
                                 Order Received
                             </button>
                         </form>
@@ -20,7 +24,7 @@
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="preparing">
                             <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                                class="block w-full px-4 py-2 text-left rounded hover:bg-gray-700 whitespace-nowrap">
                                 Preparing
                             </button>
                         </form>
@@ -29,7 +33,7 @@
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="ready">
                             <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                                class="block w-full px-4 py-2 text-left rounded hover:bg-gray-700 whitespace-nowrap">
                                 Ready to Serve
                             </button>
                         </form>
@@ -38,8 +42,17 @@
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <input type="hidden" name="order_status" value="completed">
                             <button type="submit"
-                                class="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 whitespace-nowrap">
+                                class="block w-full px-4 py-2 text-left rounded hover:bg-gray-700 whitespace-nowrap">
                                 Completed
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form method="GET" action="{{ route('admin.orders.index') }}">
+                            <input type="hidden" name="order_status" value="table">
+                            <button type="submit"
+                                class="block w-full px-4 py-2 text-left rounded hover:bg-gray-700 whitespace-nowrap">
+                                Point of Sales
                             </button>
                         </form>
                     </li>
@@ -53,8 +66,8 @@
 
             <!-- Filters -->
             <form method="GET" action="{{ route('admin.orders.index') }}">
-                <div class="mb-6 flex flex-wrap items-center gap-4">
-                    <div class="flex gap-4 w-full sm:w-auto">
+                <div class="flex flex-wrap items-center gap-4 mb-6">
+                    <div class="flex w-full gap-4 sm:w-auto">
                         <button type="submit" name="period" value="today"
                             class="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-700 w-full sm:w-auto {{ request('period') == 'today' ? 'bg-gray-600' : '' }}">
                             Today
@@ -65,21 +78,21 @@
                         </button>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
                     <input type="date" name="start_date" value="{{ request('start_date') }}"
-                        class="py-2 px-4 border rounded w-full">
+                        class="w-full px-4 py-2 border rounded">
                     <input type="date" name="end_date" value="{{ request('end_date') }}"
-                        class="py-2 px-4 border rounded w-full">
+                        class="w-full px-4 py-2 border rounded">
                     <button type="submit" name="period" value="custom"
-                        class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full sm:w-auto">
+                        class="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 sm:w-auto">
                         Filter
                     </button>
                 </div>
         </div>
         </form>
         @if ($orders->isEmpty())
-            <div class=" mb-64">
-                <svg class="svg-icon text-slate-400 m-auto translate-y-20" width="200" height="200"
+            <div class="mb-64 ">
+                <svg class="m-auto translate-y-20 svg-icon text-slate-400" width="200" height="200"
                     style="fill: currentColor;" viewBox="0 0 1024 1024" version="1.1"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -87,10 +100,61 @@
                 </svg>
                 <p class="text-slate-500 text-center translate-y-[6em]">Pencarian tidak ditemukan :(</p>
             </div>
+        @elseif ($order_status === 'table')
+            <div class="w-[90%] mx-auto">
+                <table id="orders-table">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 border">Order ID</th>
+                            <th class="px-4 py-2 border">Customer Name</th>
+                            <th class="px-4 py-2 border">Total Price</th>
+                            <th class="px-4 py-2 border">Status</th>
+                            <th class="px-4 py-2 border">Created At</th>
+                            <th class="px-4 py-2 border">Updated At</th>
+                            <th class="px-4 py-2 border">Order Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($orders as $order)
+                            <tr>
+                                <td class="px-4 py-2 border">{{ $order->id }}</td>
+                                <td class="px-4 py-2 border">{{ $order->user->name ?? 'N/A' }}</td>
+                                <td class="px-4 py-2 border">Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                                </td>
+                                <td class="px-4 py-2 border">{{ ucfirst($order->order_status) }}</td>
+                                <td class="px-4 py-2 border">{{ $order->created_at->format('d F Y H:i') }}</td>
+                                <td class="px-4 py-2 border">{{ $order->updated_at->format('d F Y H:i') }}</td>
+                                <td class="px-4 py-2 border">
+                                    <ul>
+                                        @foreach ($order->menu_orders as $menu_order)
+                                            <li>{{ $menu_order->menu->name }} x {{ $menu_order->quantity }} - Rp
+                                                {{ number_format($menu_order->menu->price * $menu_order->quantity, 0, ',', '.') }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    @if ($order->voucher)
+                                        <p class="text-sm text-gray-600">Voucher Used: {{ $order->voucher->name }} -
+                                            {{ $order->voucher->discount }}% Discount</p>
+                                    @endif
+                                    <p class="text-sm text-gray-600">Payment Status: <span
+                                            class="{{ $order->payment_status == 'Paid' ? 'text-green-500' : 'text-red-500' }}">{{ ucfirst($order->payment_status) }}</span>
+                                    </p>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    $('#orders-table').DataTable();
+                });
+            </script>
         @else
             <!-- Orders List -->
             @foreach ($orders as $order)
-                <div class="bg-white shadow rounded-lg p-6 mb-4">
+                <div class="p-6 mb-4 bg-white rounded-lg shadow">
                     <div class="mb-4">
                         <h3 class="text-xl font-bold">Customer Name: {{ $order->user->name }}</h3>
                         <hr class="my-2">
@@ -137,7 +201,7 @@
                         @endforeach
                     </ul>
 
-                    <div class="flex justify-between font-bold text-3xl">
+                    <div class="flex justify-between text-3xl font-bold">
                         <span>Total</span>
                         <span>Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
                     </div>
@@ -149,7 +213,7 @@
                         </div>
                     @endif
 
-                    <div class="mt-4 relative">
+                    <div class="relative mt-4">
                         <button id="dropdownButton"
                             class="w-full py-2 px-4 {{ $order->order_status == 'Pending' ? 'bg-red-500' : '' }}
                                 {{ $order->order_status == 'Preparing' ? 'bg-yellow-500' : '' }}
@@ -159,28 +223,28 @@
                             Select Option
                         </button>
                         <div id="dropdownMenu"
-                            class="hidden absolute w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-2">
+                            class="absolute hidden w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
                             <form method="POST" action="{{ route('admin.orders.update', $order->id) }}">
                                 @csrf
                                 @method('PATCH')
                                 <ul class="py-2">
                                     <li>
                                         <button type="submit" name="order_status" value="Pending"
-                                            class="w-full text-left px-4 py-2 hover:bg-gray-100">Order
+                                            class="w-full px-4 py-2 text-left hover:bg-gray-100">Order
                                             Received</button>
                                     </li>
                                     <li>
                                         <button type="submit" name="order_status" value="Preparing"
-                                            class="w-full text-left px-4 py-2 hover:bg-gray-100">Preparing</button>
+                                            class="w-full px-4 py-2 text-left hover:bg-gray-100">Preparing</button>
                                     </li>
                                     <li>
                                         <button type="submit" name="order_status" value="Ready"
-                                            class="w-full text-left px-4 py-2 hover:bg-gray-100">Ready to
+                                            class="w-full px-4 py-2 text-left hover:bg-gray-100">Ready to
                                             Serve</button>
                                     </li>
                                     <li>
                                         <button type="submit" name="order_status" value="Completed"
-                                            class="w-full text-left px-4 py-2 hover:bg-gray-100">Completed</button>
+                                            class="w-full px-4 py-2 text-left hover:bg-gray-100">Completed</button>
                                     </li>
                                 </ul>
                             </form>
